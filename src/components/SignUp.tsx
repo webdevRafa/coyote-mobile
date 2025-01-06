@@ -46,14 +46,18 @@ export const SignUp: React.FC = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center h-[400px] bg-white w-full">
-        <div className="sign-up-form">
+      <div className="flex items-center justify-center w-full">
+        <div className="py-6 px-5 md:px-20 w-full">
           <h2 className="text-3xl font-bold font-mono mb-5">GET STARTED</h2>
-          {/* SIGN UP FORM */}
-          <form onSubmit={handleSignUp} className="min-w-[300px]">
+          {error && <p className="text-red text-sm mb-4">{error}</p>}
+          {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
+
+          <form onSubmit={handleSignUp} className="space-y-4">
             {/* NAME */}
-            <div className="flex justify-between my-1">
-              <label htmlFor="name">Full Name</label>
+            <div>
+              <label htmlFor="name" className="block">
+                Full Name
+              </label>
               <input
                 type="text"
                 id="name"
@@ -61,11 +65,15 @@ export const SignUp: React.FC = () => {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your full name"
                 required
+                className="w-full p-2 border border-gray rounded"
               />
             </div>
+
             {/* EMAIL */}
-            <div className="flex justify-between my-1">
-              <label htmlFor="email">Email</label>
+            <div>
+              <label htmlFor="email" className="block">
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
@@ -73,11 +81,15 @@ export const SignUp: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
+                className="w-full p-2 border border-gray rounded"
               />
             </div>
+
             {/* PASSWORD */}
-            <div className="flex justify-between my-1">
-              <label htmlFor="password">Password</label>
+            <div>
+              <label htmlFor="password" className="block">
+                Password
+              </label>
               <input
                 type="password"
                 id="password"
@@ -85,11 +97,13 @@ export const SignUp: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 required
+                className="w-full p-2 border border-gray rounded"
               />
             </div>
+
             {/* CONFIRM PASSWORD */}
-            <div className="flex justify-between my-1">
-              <label className="mr-5" htmlFor="confirmPassword">
+            <div>
+              <label htmlFor="confirmPassword" className="block">
                 Confirm Password
               </label>
               <input
@@ -99,20 +113,18 @@ export const SignUp: React.FC = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
                 required
+                className="w-full p-2 border border-gray rounded"
               />
             </div>
+
             {/* BUTTON */}
             <button
-              className="block mx-auto bg-black text-white mt-5 px-2 py-1"
               type="submit"
+              className="w-[300px] mx-auto block py-2 rounded text-white bg-blue hover:bg-dark-blue transition ease-in-out duration-300"
             >
               Sign Up
             </button>
           </form>
-
-          {/* ERROR OR SUCCESS */}
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          {success && <p style={{ color: "green" }}>{success}</p>}
         </div>
       </div>
     </>
