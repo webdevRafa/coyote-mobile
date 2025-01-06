@@ -46,7 +46,7 @@ export const SignUp: React.FC = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center h-[400px] w-full">
+      <div className="flex items-center justify-center h-[400px] bg-white w-full">
         <div className="sign-up-form">
           <h2 className="text-3xl font-bold font-mono mb-5">GET STARTED</h2>
           {/* SIGN UP FORM */}
