@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { SignUp } from "./SignUp";
-import { SignIn } from "./SignIn";
+import { SignUp } from "../components/SignUp";
+import { SignIn } from "../components/SignIn";
 
 export const SignUpSignInToggle: React.FC = () => {
   const [selected, setSelected] = useState<"signUp" | "signIn">("signUp");

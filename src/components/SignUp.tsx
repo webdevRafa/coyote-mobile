@@ -8,7 +8,8 @@ export const SignUp: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -33,7 +34,8 @@ export const SignUp: React.FC = () => {
       // Save additional user info in Firestore
       const userId = userCredential.user.uid;
       await setDoc(doc(db, "users", userId), {
-        fullName: name,
+        firstName,
+        lastName,
         email,
         createdAt: new Date().toISOString(),
       });
@@ -53,17 +55,33 @@ export const SignUp: React.FC = () => {
           {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
 
           <form onSubmit={handleSignUp} className="space-y-4">
-            {/* NAME */}
+            {/* FIRST NAME */}
             <div>
-              <label htmlFor="name" className="block">
-                Full Name
+              <label htmlFor="firstName" className="block">
+                First Name
               </label>
               <input
                 type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter your full name"
+                id="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="Enter your first name"
+                required
+                className="w-full p-2 border border-gray rounded"
+              />
+            </div>
+
+            {/* LAST NAME */}
+            <div>
+              <label htmlFor="lastName" className="block">
+                Last Name
+              </label>
+              <input
+                type="text"
+                id="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Enter your last name"
                 required
                 className="w-full p-2 border border-gray rounded"
               />
