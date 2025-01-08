@@ -29,6 +29,8 @@ export const Dashboard: React.FC = () => {
           const userDoc = await getDoc(doc(db, "users", user.uid));
           if (userDoc.exists()) {
             setUserData(userDoc.data());
+          } else {
+            console.warn("User document doesn't exist");
           }
 
           // Fetch user appointments from Firestore
