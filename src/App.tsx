@@ -12,7 +12,7 @@ function App() {
       <About />
       <div className="w-full flex flex-col md:flex-row justify-center items-center max-w-[1200px] mx-auto gap-5">
         <SignUpSignInToggle />
-        <Dashboard />
+        <Dashboard></Dashboard>
       </div>
       <div className="h-[500px]"></div>
     </>
