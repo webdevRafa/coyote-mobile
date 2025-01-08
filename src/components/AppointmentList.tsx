@@ -27,21 +27,22 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
   return (
     <div className="p-4 bg-white rounded shadow-md">
       <h2 className="text-3xl font-bold mb-4">Your Appointments</h2>
-      <ul>
+      <ul className="bg-white shadow-md">
         {appointments.map((appointment) => (
           <li key={appointment.id} className="p-2 border-b-2 last:border-0">
+            <p>
+              <strong>Service: </strong>
+              {appointment.serviceId || "N/A"}
+            </p>
             <p>
               <strong>Date:</strong>{" "}
               {new Date(appointment.appointmentDate).toLocaleString()}
             </p>
             <p>
-              <strong>Status:</strong>
+              <strong>Status: </strong>
               {appointment.status}
             </p>
-            <p>
-              <strong>Service ID:</strong>
-              {appointment.serviceId || "N/A"}
-            </p>
+            <button className="bg-blue px-2 rounded-sm">modify</button>
           </li>
         ))}
       </ul>
