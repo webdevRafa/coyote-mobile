@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { UserCard } from "../components/UserCard";
 import { AppointmentList } from "../components/AppointmentList";
+import logo from "../assets/logo-black_1.png";
 
 export const Dashboard: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -61,6 +62,18 @@ export const Dashboard: React.FC = () => {
   }, []);
 
   if (loading) return <p>Loading...</p>;
+  if (!user) {
+    return (
+      <div className="w-full bg-off-white  text-gray font-mono text-center pb-20 pt-5 pl-1">
+        <img src={logo} className="mb-20 w-[100px]" alt="" />
+        <div className="flex items-center justify-center h-full">
+          <p className="bg-white shadow-md p-2">
+            No User found. Please login to acess the Dashboard.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gradient-to-b from-off-white to-white w-full mt-20 p-3">
