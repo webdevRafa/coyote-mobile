@@ -1,6 +1,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../firebase";
+import { setPersistence, browserSessionPersistence } from "firebase/auth";
 
 export const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -33,6 +34,7 @@ export const SignIn: React.FC = () => {
 
     try {
       // firebase authentication
+      await setPersistence(auth, browserSessionPersistence);
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
