@@ -13,7 +13,8 @@ export default {
       'red': '#ce0707',
       'dark-red': '#910707',
       'blue': '#149bcf',
-      'dark-blue': '#127ea8'
+      'dark-blue': '#127ea8',
+      'green': '#07c244'
     },
     extend: {},
   },
