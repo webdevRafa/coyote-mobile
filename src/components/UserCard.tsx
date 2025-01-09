@@ -15,24 +15,21 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
   };
 
   return (
-    <div className="p-4 bg-white rounded shadow-md flex justify-between">
-      <div>
-        <h2 className="text-3xl font-bold text-gray">
-          Welcome, {userData?.firstName || user.email}
+    <div className="p-4 rounded flex justify-between">
+      <div className="bg-white shadow-md p-2 md:p-5">
+        <h2 className="text-3xl text-gray">
+          Welcome,{" "}
+          <span className="font-bold text-dark-blue">
+            {userData?.firstName || user.email}
+          </span>
         </h2>
-        <p className="text-blue">Email: {user?.email}</p>
-        <p>
-          Account created:{" "}
-          {userData?.createdAt
-            ? new Date(userData?.createdAt).toLocaleDateString()
-            : "Unknown"}
-        </p>
+        <p>{user?.email}</p>
       </div>
 
       <div>
         <button
           onClick={handleLogout}
-          className="bg-blue p-1 rounded text-white shadow-md hover:bg-dark-blue hover:scale-105 transition ease-in-out duration-300"
+          className="bg-dark-red p-1 rounded text-white shadow-md hover:bg-red hover:scale-105 transition ease-in-out duration-75"
         >
           Logout
         </button>

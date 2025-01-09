@@ -10,7 +10,8 @@ function App() {
     <>
       <HeroSection />
       <About />
-      <div className="w-full flex flex-col md:flex-row justify-center items-center max-w-[1200px] mx-auto gap-5">
+
+      <div className="w-full flex flex-col md:flex-row justify-center items-center mx-auto gap-5 md:px-10">
         <SignUpSignInToggle />
         <Dashboard />
       </div>
