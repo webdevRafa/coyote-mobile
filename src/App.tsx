@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import "./App.css";
 import { About } from "./pages/About";
 import { HeroSection } from "./components/HeroSection";

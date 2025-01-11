@@ -1,20 +1,9 @@
 import { useState } from "react";
+import { ScheduleAppointment } from "./ScheduleAppointment";
+import { Appointment, formatDateTime } from "../utilities/types";
 
 interface AppointmentListProps {
-  appointments: {
-    id: string;
-    appointmentDate: string;
-    createdAt: string;
-    serviceId: string;
-    status: string;
-  }[];
-}
-
-interface Appointment {
-  id: string;
-  serviceId?: string;
-  appointmentDate: string | Date;
-  status: string;
+  appointments: Appointment[];
 }
 
 export const AppointmentList: React.FC<AppointmentListProps> = ({
@@ -29,32 +18,13 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
     setSelectedAppointment(appointment);
   };
 
-  const handleInputChange = (field: keyof Appointment, value: string) => {
-    if (selectedAppointment) {
-      setSelectedAppointment({
-        ...selectedAppointment,
-        [field]: value,
-      });
-    }
-  };
-
-  const handleSave = () => {
-    // Save to backend logic (e.g., update Firestore)
-    console.log("Saving updated appointment:", selectedAppointment);
-
-    // Close the popup after saving
-    setManaging(false);
-  };
-
   if (appointments.length === 0) {
     return (
       <div className="bg-white rounded shadow-md p-5 mt-10 h-full">
         <h2 className="text-2xl font-bold mb-4 text-gray">
           No Appointments Found
         </h2>
-        <button className="bg-blue text-white p-2 rounded shadow-md font-mono hover:md:scale-105 transition ease-in-out duration-75">
-          Schedule an appointment
-        </button>
+        <ScheduleAppointment />
       </div>
     );
   }
@@ -70,23 +40,26 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
             {appointments.map((appointment) => (
               <li
                 key={appointment.id}
-                className="p-2 mb-5 bg-white shadow-sm hover:shadow-md animation transition ease-in-out duration-75"
+                className="p-4 mb-5 bg-off-white hover:bg-white shadow-sm hover:shadow-md animation transition ease-in-out duration-75 group"
               >
-                <p>
-                  <strong>Service: </strong>
-                  {appointment.serviceId || "N/A"}
+                <p className="mb-2">
+                  <strong>Reason for Visit: </strong>
+                  <span className=" px-2 py-1 shadow-md">
+                    {appointment.reasonForVisit}
+                  </span>
                 </p>
-                <p>
-                  <strong>Date:</strong>{" "}
-                  {new Date(appointment.appointmentDate).toLocaleString()}
-                </p>
-                <p>
+
+                <p className="mb-2">
                   <strong>Status: </strong>
                   {appointment.status}
                 </p>
+                <p className="mb-2">
+                  <strong>Date: </strong>
+                  {formatDateTime(appointment.appointmentDate)}
+                </p>
                 <button
                   onClick={() => handleManage(appointment)}
-                  className="bg-blue p-1 rounded-sm text-white transition ease-in-out hover:scale-105 duration-75"
+                  className="font-mono bg-dark-gray p-1 rounded-sm text-white transition ease-in-out duration-300 group-hover:bg-blue"
                 >
                   Manage
                 </button>
@@ -95,64 +68,37 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
           </ul>
         </div>
         {managing && selectedAppointment && (
-          <div className="absolute w-full h-full bg-white top-0 left-0 shadow-md flex justify-center items-center">
+          <div className="w-full h-full absolute top-0 left-0 bg-off-white flex items-center justify-center">
             <div>
-              <h1 className="mb-5 text-xl font-bold text-gray border-b-2 border-off-white pb-2">
-                Manage Appointment
+              <h1 className="font-bold text-gray mb-2">
+                {selectedAppointment.reasonForVisit}
               </h1>
-              <label>
-                <strong>Service:</strong>
-                <input
-                  type="text"
-                  value={selectedAppointment.serviceId || ""}
-                  onChange={(e) =>
-                    handleInputChange("serviceId", e.target.value)
-                  }
-                  className="block w-full p-1 border rounded mb-3"
-                />
-              </label>
-              <label>
-                <strong>Date:</strong>
-                <input
-                  type="datetime-local"
-                  value={
-                    new Date(selectedAppointment.appointmentDate)
-                      .toISOString()
-                      .slice(0, 16) // For datetime-local input
-                  }
-                  onChange={(e) =>
-                    handleInputChange("appointmentDate", e.target.value)
-                  }
-                  className="block w-full p-1 border rounded mb-3"
-                />
-              </label>
-              <label>
-                <strong>Status:</strong>
-                <select
-                  value={selectedAppointment.status}
-                  onChange={(e) => handleInputChange("status", e.target.value)}
-                  className="block w-full p-1 border rounded mb-3"
+              <h2 className="mb-2">
+                {formatDateTime(selectedAppointment.appointmentDate)}
+              </h2>
+              <div className="flex gap-3 justify-between">
+                <button
+                  onClick={() => setManaging(false)}
+                  className="bg-red rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-mono"
                 >
-                  <option value="confirmed">Confirmed</option>
-                  <option value="pending">Pending</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-              </label>
-              <button
-                onClick={handleSave}
-                className="bg-blue p-1 rounded-sm text-white mr-2"
-              >
-                Save
-              </button>
-              <button
-                onClick={() => setManaging(false)}
-                className="bg-red p-1 rounded-sm text-white"
-              >
-                Close
-              </button>
+                  cancel appt.
+                </button>
+                <button
+                  onClick={() => setManaging(false)}
+                  className="bg-green rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-mono"
+                >
+                  reschedule
+                </button>
+              </div>
             </div>
           </div>
         )}
+      </div>
+      <div className="mt-10 px-4">
+        <h2 className="text-2xl font-bold mb-4 text-gray">
+          Schedule an appointment
+        </h2>
+        <ScheduleAppointment />
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Appointment } from "../utilities/types";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "../firebase";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import {
   doc,
   getDoc,
@@ -13,14 +13,6 @@ import {
 import { UserCard } from "../components/UserCard";
 import { AppointmentList } from "../components/AppointmentList";
 import logo from "../assets/logo-black_1.png";
-
-interface Appointment {
-  id: string;
-  appointmentDate: string;
-  serviceId: string;
-  status: string;
-  createdAt: string;
-}
 
 export const Dashboard: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -55,21 +47,23 @@ export const Dashboard: React.FC = () => {
 
       const fetchedAppointments: Appointment[] = querySnapshot.docs.map(
         (doc) => {
-          const data = doc.data(); // Keep `data` as its raw Firestore structure
+          const data = doc.data() as Appointment;
           return {
             id: doc.id,
-            appointmentDate: data.appointmentDate.toDate().toISOString(), // Convert Timestamp to string
-            createdAt: data.createdAt.toDate().toISOString(), // Convert Timestamp to string
+            appointmentDate: data.appointmentDate,
+            createdAt: data.createdAt,
             serviceId: data.serviceId || "Unknown Service",
             status: data.status || "Pending",
+            reasonForVisit: data.reasonForVisit || "No reason provided",
           };
         }
       );
 
+      console.log("Fetched Appointments:", fetchAppointments);
       setAppointments(fetchedAppointments);
     } catch (err) {
       console.error("Error fetching appointments:", err);
-      setError("Failed to fetch appointments.");
+      setError("Failed to fetch appointments");
     }
   };
 

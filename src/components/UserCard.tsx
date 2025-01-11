@@ -19,17 +19,16 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
       <div className="bg-white shadow-md p-2 md:p-5">
         <h2 className="text-3xl text-gray">
           Welcome,{" "}
-          <span className="font-bold text-dark-blue">
+          <span className="font-bold text-blue">
             {userData?.firstName || user.email}
           </span>
         </h2>
-        <p>{user?.email}</p>
       </div>
 
       <div>
         <button
           onClick={handleLogout}
-          className="bg-dark-red p-1 rounded text-white shadow-md hover:bg-red hover:scale-105 transition ease-in-out duration-75"
+          className="bg-red p-1 rounded text-white shadow-md hover:scale-105 transition ease-in-out duration-75"
         >
           Logout
         </button>

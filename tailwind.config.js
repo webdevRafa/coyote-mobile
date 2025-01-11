@@ -10,11 +10,11 @@ export default {
       'dark-gray': '#19191d',
       'white': '#ffffff',
       'off-white': '#f8f8f8',
-      'red': '#ce0707',
+      'red': '#71001a',
       'dark-red': '#910707',
-      'blue': '#149bcf',
+      'blue': '#054e71',
       'dark-blue': '#127ea8',
-      'green': '#07c244'
+      'green': '#05715e'
     },
     extend: {},
   },

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "commonjs",
+    "outDir": "./lib", // Ensure compiled files go to the "lib" folder
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true
+  }
+}
