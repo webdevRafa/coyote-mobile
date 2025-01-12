@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ScheduleAppointment } from "./ScheduleAppointment";
 import { Appointment, formatDateTime } from "../utilities/types";
+import { cancelAppointment } from "../services/cancelAppointment";
 
 interface AppointmentListProps {
   appointments: Appointment[];
@@ -78,7 +79,21 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
               </h2>
               <div className="flex gap-3 justify-between">
                 <button
-                  onClick={() => setManaging(false)}
+                  onClick={() => {
+                    console.log(
+                      "Selected appointment timeSlot:",
+                      selectedAppointment.timeSlot
+                    );
+                    console.log(
+                      "Selected appointment date:",
+                      selectedAppointment.appointmentDate
+                    );
+                    cancelAppointment(
+                      selectedAppointment.id,
+                      selectedAppointment.appointmentDate, // Pass the date
+                      selectedAppointment.timeSlot // Pass the time slot
+                    );
+                  }}
                   className="bg-red rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-mono"
                 >
                   cancel appt.

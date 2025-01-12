@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { doc, updateDoc, addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { Timestamp } from "firebase/firestore";
+import { getNextSundays } from "../services/getNextSundays";
 
 export const ScheduleAppointment: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -12,21 +13,6 @@ export const ScheduleAppointment: React.FC = () => {
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [reason, setReason] = useState<string>(""); // Added state for reason
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const getNextSundays = (count: number): string[] => {
-    const sundays: string[] = [];
-    const today = new Date();
-    let date = new Date(today);
-
-    date.setDate(date.getDate() + ((7 - date.getDay()) % 7));
-
-    while (sundays.length < count) {
-      sundays.push(date.toISOString().split("T")[0]); // Format as YYYY-MM-DD
-      date.setDate(date.getDate() + 7); // Move to the next Sunday
-    }
-
-    return sundays;
-  };
 
   const handleDateSelection = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedDate(e.target.value);
@@ -79,17 +65,32 @@ export const ScheduleAppointment: React.FC = () => {
       // Update slot availability in Firestore
       await updateDoc(docRef, { slots: updatedSlots });
 
-      // Calculate the `Timestamp` for the appointment
-      const [hours, minutes] = selectedSlot
+      // Correctly parse and adjust the selectedSlot
+      const [rawHours, rawMinutes] = selectedSlot
         .replace(/(am|pm)/i, "")
         .split(":")
         .map(Number);
       const isPM = selectedSlot.toLowerCase().includes("pm");
-      const adjustedHours =
-        isPM && hours !== 12 ? hours + 12 : hours === 12 && !isPM ? 0 : hours;
 
-      const appointmentDate = new Date(selectedDate);
-      appointmentDate.setHours(adjustedHours, minutes, 0, 0);
+      // Convert hours to 24-hour format
+      const adjustedHours =
+        isPM && rawHours !== 12
+          ? rawHours + 12
+          : !isPM && rawHours === 12
+          ? 0
+          : rawHours;
+
+      // Construct the appointmentDate in the local timezone
+      const [year, month, day] = selectedDate.split("-").map(Number);
+      const appointmentDate = new Date(
+        year,
+        month - 1,
+        day,
+        adjustedHours,
+        rawMinutes,
+        0
+      );
+
       const appointmentTimestamp = Timestamp.fromDate(appointmentDate);
 
       // Add booking details to the bookings collection
@@ -98,10 +99,10 @@ export const ScheduleAppointment: React.FC = () => {
         userId,
         appointmentDate: appointmentTimestamp, // Store as Firestore Timestamp
         slot: selectedSlot,
-        serviceId: "massage_therapy", // Example service ID
-        reasonForVisit: reason.trim(), // Include user input
+        serviceId: "massage_therapy",
+        reasonForVisit: reason.trim(),
         status: "confirmed",
-        createdAt: Timestamp.now(), // Timestamp for when the booking is created
+        createdAt: Timestamp.now(),
       };
 
       await addDoc(bookingsRef, bookingData);
@@ -182,11 +183,11 @@ export const ScheduleAppointment: React.FC = () => {
                   <button
                     disabled={status === "booked"}
                     onClick={() => setSelectedSlot(time)}
-                    className={`p-2 rounded w-full ${
+                    className={`p-2 rounded w-full hover:bg-blue hover:text-white ${
                       status === "booked"
-                        ? "bg-off-white text-white cursor-not-allowed"
+                        ? "bg-off-white hover:bg-off-white text-white cursor-not-allowed"
                         : selectedSlot === time
-                        ? "bg-blue-500 text-white"
+                        ? "bg-blue text-white"
                         : "bg-gray-200 hover:bg-gray-300"
                     }`}
                   >
