@@ -82,7 +82,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
                   onClick={() => {
                     console.log(
                       "Selected appointment timeSlot:",
-                      selectedAppointment.slot
+                      selectedAppointment.timeSlot
                     );
                     console.log(
                       "Selected appointment date:",
@@ -91,7 +91,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
                     cancelAppointment(
                       selectedAppointment.id,
                       selectedAppointment.appointmentDate, // Pass the date
-                      selectedAppointment.slot // Pass the time slot
+                      selectedAppointment.timeSlot // Pass the time slot
                     );
                   }}
                   className="bg-red rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-mono"

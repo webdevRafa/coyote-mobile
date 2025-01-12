@@ -52,6 +52,7 @@ export const Dashboard: React.FC = () => {
             id: doc.id,
             appointmentDate: data.appointmentDate,
             createdAt: data.createdAt,
+            timeSlot: data.timeSlot,
             serviceId: data.serviceId || "Unknown Service",
             status: data.status || "Pending",
             reasonForVisit: data.reasonForVisit || "No reason provided",

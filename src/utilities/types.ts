@@ -3,7 +3,7 @@ import { Timestamp } from "firebase/firestore";
 export interface Appointment {
     id: string;
     appointmentDate: Timestamp | string;
-    slot: string;
+    timeSlot: string
     createdAt: Timestamp;
     serviceId: string;
     status: string;
