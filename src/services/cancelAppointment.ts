@@ -5,7 +5,7 @@ import { Timestamp } from "firebase/firestore";
 export const cancelAppointment = async (
   appointmentId: string,
   appointmentDate: Timestamp | string,
-  timeSlot: string
+  slot: string
 ): Promise<void> => {
   try {
     // Convert appointmentDate to Firestore Timestamp if necessary
@@ -25,18 +25,18 @@ export const cancelAppointment = async (
     // Step 2: Fetch the availableSlots document
     const availableSlotDocRef = doc(db, "availableSlots", appointmentDateString);
     const availableSlotDoc = await getDoc(availableSlotDocRef);
-    console.log("Received timeSlot:", timeSlot);
+    console.log("Received slot:", slot);
 
     if (availableSlotDoc.exists()) {
       const currentSlots = availableSlotDoc.data().slots;
 
-      if (currentSlots && currentSlots[timeSlot] === "booked") {
+      if (currentSlots && currentSlots[slot] === "booked") {
         // Update the specific time slot to "available"
-        currentSlots[timeSlot] = "available";
+        currentSlots[slot] = "available";
         await updateDoc(availableSlotDocRef, { slots: currentSlots });
-        console.log(`Time slot ${timeSlot} on ${appointmentDateString} is now available.`);
+        console.log(`Time slot ${slot} on ${appointmentDateString} is now available.`);
       } else {
-        console.error(`Time slot ${timeSlot} is not booked or does not exist.`);
+        console.error(`Time slot ${slot} is not booked or does not exist.`);
       }
     } else {
       console.error(`No document found for ID: ${appointmentDateString}`);
