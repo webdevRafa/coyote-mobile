@@ -78,14 +78,6 @@ export const Dashboard: React.FC = () => {
     );
   };
 
-  // function to add appointment to state
-  const handleAddAppointment = (newAppointment: Appointment) => {
-    setAppointments((prevAppointments) => [
-      ...prevAppointments,
-      newAppointment,
-    ]);
-  };
-
   useEffect(() => {
     let isMounted = true; // Flag to track if the component is still mounted
 
@@ -143,7 +135,6 @@ export const Dashboard: React.FC = () => {
       <AppointmentList
         appointments={appointments}
         onRemoveAppointment={handleRemoveAppointment}
-        onAddAppointment={handleAddAppointment}
       />
     </div>
   );

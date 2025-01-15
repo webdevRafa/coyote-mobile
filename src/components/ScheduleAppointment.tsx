@@ -4,14 +4,8 @@ import { doc, updateDoc, addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { Timestamp } from "firebase/firestore";
 import { getNextSundays } from "../services/getNextSundays";
-import { Appointment } from "../utilities/types";
-interface ScheduleAppointmentProps {
-  onAddAppointment: (newAppointment: Appointment) => void; // Accept the callback
-}
 
-export const ScheduleAppointment: React.FC<ScheduleAppointmentProps> = ({
-  onAddAppointment,
-}) => {
+export const ScheduleAppointment: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [timeSlots, setTimeSlots] = useState<{ [key: string]: string } | null>(
     null

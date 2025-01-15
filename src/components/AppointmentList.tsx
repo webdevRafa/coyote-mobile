@@ -6,13 +6,11 @@ import { cancelAppointment } from "../services/cancelAppointment";
 interface AppointmentListProps {
   appointments: Appointment[];
   onRemoveAppointment: (appointmentId: string) => void;
-  onAddAppointment: (newApopintment: Appointment) => void;
 }
 
 export const AppointmentList: React.FC<AppointmentListProps> = ({
   appointments,
   onRemoveAppointment,
-  onAddAppointment,
 }) => {
   const [managing, setManaging] = useState(false);
   const [selectedAppointment, setSelectedAppointment] =
@@ -56,7 +54,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
         <h2 className="text-2xl font-bold mb-4 text-gray">
           No Appointments Found
         </h2>
-        <ScheduleAppointment onAddAppointment={onAddAppointment} />
+        <ScheduleAppointment />
       </div>
     );
   }
@@ -139,7 +137,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
         <h2 className="text-2xl font-bold mb-4 text-gray">
           Schedule an Appointment
         </h2>
-        <ScheduleAppointment onAddAppointment={onAddAppointment} />
+        <ScheduleAppointment />
       </div>
     </>
   );
