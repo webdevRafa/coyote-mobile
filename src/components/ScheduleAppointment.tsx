@@ -4,8 +4,14 @@ import { doc, updateDoc, addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { Timestamp } from "firebase/firestore";
 import { getNextSundays } from "../services/getNextSundays";
+import { Appointment } from "../utilities/types";
+interface ScheduleAppointmentProps {
+  onAddAppointment: (newAppointment: Appointment) => void; // Accept the callback
+}
 
-export const ScheduleAppointment: React.FC = () => {
+export const ScheduleAppointment: React.FC<ScheduleAppointmentProps> = ({
+  onAddAppointment,
+}) => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [timeSlots, setTimeSlots] = useState<{ [key: string]: string } | null>(
     null
@@ -65,39 +71,11 @@ export const ScheduleAppointment: React.FC = () => {
       // Update slot availability in Firestore
       await updateDoc(docRef, { slots: updatedSlots });
 
-      // Correctly parse and adjust the selectedSlot
-      const [rawHours, rawMinutes] = selectedSlot
-        .replace(/(am|pm)/i, "")
-        .split(":")
-        .map(Number);
-      const isPM = selectedSlot.toLowerCase().includes("pm");
-
-      // Convert hours to 24-hour format
-      const adjustedHours =
-        isPM && rawHours !== 12
-          ? rawHours + 12
-          : !isPM && rawHours === 12
-          ? 0
-          : rawHours;
-
-      // Construct the appointmentDate in the local timezone
-      const [year, month, day] = selectedDate.split("-").map(Number);
-      const appointmentDate = new Date(
-        year,
-        month - 1,
-        day,
-        adjustedHours,
-        rawMinutes,
-        0
-      );
-
-      const appointmentTimestamp = Timestamp.fromDate(appointmentDate);
-
       // Add booking details to the bookings collection
       const bookingsRef = collection(db, "bookings");
       const bookingData = {
         userId,
-        appointmentDate: appointmentTimestamp, // Store as Firestore Timestamp
+        date: selectedDate, // Adding the date as a string matching availableSlots ID
         slot: selectedSlot,
         serviceId: "massage_therapy",
         reasonForVisit: reason.trim(),

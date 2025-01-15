@@ -5,18 +5,49 @@ import { cancelAppointment } from "../services/cancelAppointment";
 
 interface AppointmentListProps {
   appointments: Appointment[];
+  onRemoveAppointment: (appointmentId: string) => void;
+  onAddAppointment: (newApopintment: Appointment) => void;
 }
 
 export const AppointmentList: React.FC<AppointmentListProps> = ({
   appointments,
+  onRemoveAppointment,
+  onAddAppointment,
 }) => {
   const [managing, setManaging] = useState(false);
   const [selectedAppointment, setSelectedAppointment] =
     useState<Appointment | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleManage = (appointment: Appointment) => {
     setManaging(true);
     setSelectedAppointment(appointment);
+  };
+
+  const handleCancelAppointment = async () => {
+    if (!selectedAppointment) return;
+
+    const documentDate = selectedAppointment.date;
+    const timeSlot = selectedAppointment.slot;
+
+    if (!documentDate || !timeSlot) {
+      console.error("Invalid appointment data:", selectedAppointment);
+      alert("Cannot cancel this appointment due to invalid data.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await cancelAppointment(documentDate, timeSlot);
+      onRemoveAppointment(selectedAppointment.id);
+      alert("Appointment successfully canceled!");
+      setManaging(false);
+    } catch (error) {
+      console.error("Failed to cancel appointment:", error);
+      alert("An error occurred while canceling the appointment.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (appointments.length === 0) {
@@ -25,7 +56,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
         <h2 className="text-2xl font-bold mb-4 text-gray">
           No Appointments Found
         </h2>
-        <ScheduleAppointment />
+        <ScheduleAppointment onAddAppointment={onAddAppointment} />
       </div>
     );
   }
@@ -56,7 +87,11 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
                 </p>
                 <p className="mb-2">
                   <strong>Date: </strong>
-                  {formatDateTime(appointment.appointmentDate)}
+                  {formatDateTime(appointment.date)}
+                </p>
+                <p className="mb-2">
+                  <strong>Time: </strong>
+                  {appointment.slot}
                 </p>
                 <button
                   onClick={() => handleManage(appointment)}
@@ -71,38 +106,29 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
         {managing && selectedAppointment && (
           <div className="w-full h-full absolute top-0 left-0 bg-off-white flex items-center justify-center">
             <div>
-              <h1 className="font-bold text-gray mb-2">
+              <h1 className=" text-gray mb-2">
+                <strong>Reason for Visit: </strong>{" "}
                 {selectedAppointment.reasonForVisit}
               </h1>
               <h2 className="mb-2">
-                {formatDateTime(selectedAppointment.appointmentDate)}
+                <strong>Date: </strong>{" "}
+                {formatDateTime(selectedAppointment.date)}
               </h2>
               <div className="flex gap-3 justify-between">
                 <button
-                  onClick={() => {
-                    console.log(
-                      "Selected appointment timeSlot:",
-                      selectedAppointment.timeSlot
-                    );
-                    console.log(
-                      "Selected appointment date:",
-                      selectedAppointment.appointmentDate
-                    );
-                    cancelAppointment(
-                      selectedAppointment.id,
-                      selectedAppointment.appointmentDate, // Pass the date
-                      selectedAppointment.timeSlot // Pass the time slot
-                    );
-                  }}
-                  className="bg-red rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-mono"
+                  onClick={handleCancelAppointment}
+                  disabled={loading}
+                  className={`bg-red rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-mono ${
+                    loading ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
                 >
-                  cancel appt.
+                  {loading ? "Cancelling..." : "Cancel Appointment"}
                 </button>
                 <button
                   onClick={() => setManaging(false)}
                   className="bg-green rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-mono"
                 >
-                  reschedule
+                  Reschedule
                 </button>
               </div>
             </div>
@@ -111,9 +137,9 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
       </div>
       <div className="mt-10 px-4">
         <h2 className="text-2xl font-bold mb-4 text-gray">
-          Schedule an appointment
+          Schedule an Appointment
         </h2>
-        <ScheduleAppointment />
+        <ScheduleAppointment onAddAppointment={onAddAppointment} />
       </div>
     </>
   );

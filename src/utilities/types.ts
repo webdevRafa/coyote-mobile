@@ -3,22 +3,24 @@ import { Timestamp } from "firebase/firestore";
 export interface Appointment {
     id: string;
     appointmentDate: Timestamp | string;
-    timeSlot: string
+    timeSlot: string,
+    date: string,
     createdAt: Timestamp;
     serviceId: string;
     status: string;
     reasonForVisit: string;
+    slot?: string;
 }
 
-export const formatDateTime = (date: Timestamp | Date | string) => {
-    if (date instanceof Date) {
-      return date.toLocaleDateString() + ", " + date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-    } else if (typeof date === "string") {
-      const parsedDate = new Date(date);
-      return parsedDate.toLocaleDateString() + ", " + parsedDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-    } else if (date?.toDate) {
-      const firebaseDate = date.toDate();
-      return firebaseDate.toLocaleDateString() + ", " + firebaseDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-    }
-    return "Invalid date";
-  };
+export const formatDateTime = (date: string): string => {
+  // Parse `YYYY-MM-DD` as a local date
+  const [year, month, day] = date.split("-").map(Number);
+  const parsedDate = new Date(year, month - 1, day); // Month is 0-indexed
+
+  return parsedDate.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+};

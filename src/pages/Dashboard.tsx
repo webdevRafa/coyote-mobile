@@ -47,25 +47,43 @@ export const Dashboard: React.FC = () => {
 
       const fetchedAppointments: Appointment[] = querySnapshot.docs.map(
         (doc) => {
-          const data = doc.data() as Appointment;
+          const data = doc.data();
+
           return {
             id: doc.id,
-            appointmentDate: data.appointmentDate,
-            createdAt: data.createdAt,
-            timeSlot: data.timeSlot,
+            date: data.date, // Correctly fetch the `date` field
+            slot: data.slot || "Unknown Slot",
             serviceId: data.serviceId || "Unknown Service",
             status: data.status || "Pending",
             reasonForVisit: data.reasonForVisit || "No reason provided",
-          };
+            createdAt: data.createdAt?.toDate?.() || data.createdAt || null,
+          } as Appointment;
         }
       );
 
-      console.log("Fetched Appointments:", fetchAppointments);
+      console.log("Fetched Appointments:", fetchedAppointments);
       setAppointments(fetchedAppointments);
     } catch (err) {
       console.error("Error fetching appointments:", err);
       setError("Failed to fetch appointments");
     }
+  };
+
+  // function to remove appointment from the state
+  const handleRemoveAppointment = (appointmentId: string) => {
+    setAppointments((prevAppointments) =>
+      prevAppointments.filter(
+        (appointment) => appointment.id !== appointment.id
+      )
+    );
+  };
+
+  // function to add appointment to state
+  const handleAddAppointment = (newAppointment: Appointment) => {
+    setAppointments((prevAppointments) => [
+      ...prevAppointments,
+      newAppointment,
+    ]);
   };
 
   useEffect(() => {
@@ -122,7 +140,11 @@ export const Dashboard: React.FC = () => {
   return (
     <div className="bg-gradient-to-b from-off-white to-white w-full mt-20 p-3">
       <UserCard user={user} userData={userData} />
-      <AppointmentList appointments={appointments} />
+      <AppointmentList
+        appointments={appointments}
+        onRemoveAppointment={handleRemoveAppointment}
+        onAddAppointment={handleAddAppointment}
+      />
     </div>
   );
 };
