@@ -70,7 +70,7 @@ export const Dashboard: React.FC = () => {
   };
 
   // function to remove appointment from the state
-  const handleRemoveAppointment = (appointmentId: string) => {
+  const handleRemoveAppointment = () => {
     setAppointments((prevAppointments) =>
       prevAppointments.filter(
         (appointment) => appointment.id !== appointment.id
