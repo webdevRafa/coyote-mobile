@@ -9,15 +9,46 @@ body {
 }
 
 .slideRight {
+  opacity: 0;
   animation: slideRight 2s forwards;
+  animation-delay: 4500ms;
+
 }
-@keyframes slideRight {
+
+.fadeIn {
+  animation: fadeIn 3s forwards;
+  animation-delay: 2500ms;
+  opacity: 0;
+}
+.fades {
+  animation: fades 500ms forwards ease-in-out;
+  animation-delay: 1000ms;
+  background-color: #202126;
+  transform: translateX(-100%);
+}
+@keyframes fades {
   0% {
-    transform: translateX(-200%);
+    background-color: #202126;
+  }
+  100% {
+    background-color: #19191d;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeIn {
+  0% {
     opacity: 0;
   }
   100% {
-    transform: translateX(0);
     opacity: 1;
   }
 }
+@keyframes slideRight {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
