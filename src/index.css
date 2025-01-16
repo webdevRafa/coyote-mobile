@@ -7,3 +7,17 @@ body {
   background: #19191d;
   background: linear-gradient(#202126, #19191d);
 }
+
+.slideRight {
+  animation: slideRight 2s forwards;
+}
+@keyframes slideRight {
+  0% {
+    transform: translateX(-200%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

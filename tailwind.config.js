@@ -14,7 +14,8 @@ export default {
       'dark-red': '#910707',
       'blue': '#054e71',
       'dark-blue': '#127ea8',
-      'green': '#05715e'
+      'green': '#05715e',
+      'sky': '#097bd5'
     },
     extend: {},
   },

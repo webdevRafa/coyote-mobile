@@ -4,11 +4,13 @@ import { About } from "./pages/About";
 import { HeroSection } from "./components/HeroSection";
 import { SignUpSignInToggle } from "./pages/SignUpSignInToggle";
 import { Dashboard } from "./pages/Dashboard";
+import { Navbar } from "./components/Navbar";
 
 SignUpSignInToggle;
 function App() {
   return (
     <>
+      <Navbar />
       <HeroSection />
       <About />
 
