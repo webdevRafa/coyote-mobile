@@ -19,7 +19,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
     <div className="p-4 rounded flex justify-between">
       <div className="shadow-md p-2 md:p-5">
         <h2 className="text-3xl text-white">
-          Welcome,
+          Welcome,&nbsp;
           <span className="font-bold text-sky">
             {userData?.firstName || user?.email}
           </span>
