@@ -10,7 +10,7 @@ export const HeroSection: React.FC = () => {
             <img src={logo} alt="" />
           </div>
           <div>
-            <img className="opacity-20" src={moi} alt="" />
+            <img src={moi} alt="" />
           </div>
         </div>
       </div>

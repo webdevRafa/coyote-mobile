@@ -1,24 +1,26 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import "./App.css";
-import { About } from "./pages/About";
-import { HeroSection } from "./components/HeroSection";
 import { SignUpSignInToggle } from "./pages/SignUpSignInToggle";
-import { Dashboard } from "./pages/Dashboard";
 import { Navbar } from "./components/Navbar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Services } from "./pages/Services";
+import { Dashboard } from "./pages/Dashboard";
+import { Contact } from "./pages/Contact";
 
 SignUpSignInToggle;
 function App() {
   return (
     <>
-      <Navbar />
-      <HeroSection />
-      <About />
-
-      <div className="w-full flex flex-col md:flex-row justify-center items-center mx-auto gap-5 md:px-10">
-        <SignUpSignInToggle />
-        <Dashboard />
-      </div>
-      <div className="h-[500px]"></div>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </Router>
     </>
   );
 }

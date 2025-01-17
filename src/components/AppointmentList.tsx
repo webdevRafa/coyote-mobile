@@ -62,10 +62,8 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
   return (
     <>
       <div className="relative">
-        <div className="p-4 bg-off-white rounded">
-          <h2 className="text-2xl font-bold mb-4 text-gray">
-            Your Appointments
-          </h2>
+        <div className="p-4 rounded">
+          <h2 className="text-2xl my-4 text-white">Your Appointments</h2>
           <ul>
             {appointments.map((appointment) => (
               <li

@@ -53,13 +53,15 @@ export const SignIn: React.FC = () => {
     <>
       <div className="flex items-center justify-center w-full">
         <div className="py-6 px-5 md:px-20 w-full">
-          <h2 className="text-3xl font-bold font-mono mb-5">SIGN IN</h2>
+          <h2 className="text-3xl font-bold font-mono mb-5 text-white">
+            SIGN IN
+          </h2>
           {error && <p className="text-red text-sm mb-4">{error}</p>}
 
           <form onSubmit={handleSignIn} className="space-y-4">
             {/* EMAIL INPUT */}
             <div>
-              <label htmlFor="email" className="block">
+              <label htmlFor="email" className="block text-white text-left">
                 Email
               </label>
               <input
@@ -75,7 +77,7 @@ export const SignIn: React.FC = () => {
 
             {/* PASSWORD INPUT */}
             <div>
-              <label htmlFor="password" className="block">
+              <label htmlFor="password" className="block text-white text-left">
                 Password
               </label>
               <input
