@@ -11,10 +11,17 @@ body {
 .slideRight {
   opacity: 0;
   animation: slideRight 2s forwards;
-  animation-delay: 4500ms;
+  animation-delay: 2500ms;
 
 }
-
+.nature {
+  background-image: url('./assets/nature-gray.png');
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+  height: 100%;
+}
 .fadeIn {
   animation: fadeIn 3s forwards;
   animation-delay: 2500ms;

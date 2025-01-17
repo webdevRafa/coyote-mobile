@@ -115,7 +115,8 @@ export const Dashboard: React.FC = () => {
     };
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return <div className="w-full h-[100vh] bg-gray">loading...</div>;
   if (!user) {
     return (
       <div className="w-full mt-[100px]  text-gray font-mono text-center py-20 pt-5 pl-1">
