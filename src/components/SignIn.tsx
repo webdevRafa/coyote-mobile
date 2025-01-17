@@ -53,7 +53,7 @@ export const SignIn: React.FC = () => {
     <>
       <div className="flex items-center justify-center w-full">
         <div className="py-6 px-5 md:px-20 w-full">
-          <h2 className="text-3xl font-bold font-mono mb-5 text-white">
+          <h2 className="text-2xl md:text-3xl font-mono mb-5 text-white">
             SIGN IN
           </h2>
           {error && <p className="text-red text-sm mb-4">{error}</p>}

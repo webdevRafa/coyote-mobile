@@ -34,7 +34,7 @@ export const About: React.FC = () => {
       </div>
 
       <div className="mx-auto max-w-[1200px] px-3 py-10">
-        <h2 className="text-3xl text-sky text-center border-b-gray border-b-2 pb-3">
+        <h2 className="text-2xl md:text-3xl text-sky text-center border-b-gray border-b-2 pb-3">
           With a focus on personalized care, Dr. Hernandez uses his expertise to
           provide effective adjustments and muscle therapy tailored to your
           unique needs.
