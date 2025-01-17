@@ -24,10 +24,7 @@ export const About: React.FC = () => {
             </p>
             <p className="bg-dark-gray text-off-white mt-5 text-lg ">
               Dr. Moises Hernandez, D.C., is committed to helping you feel your
-              best without the hassle of traveling to a clinic. With a focus on
-              personalized care, Dr. Hernandez uses his expertise to provide
-              effective adjustments and muscle therapy tailored to your unique
-              needs.
+              best without the hassle of traveling to a clinic.
             </p>
           </div>
         </div>
