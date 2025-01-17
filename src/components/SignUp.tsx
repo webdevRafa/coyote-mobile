@@ -196,10 +196,13 @@ export const SignUp: React.FC = () => {
           {currentStep === 3 && (
             <>
               <h3 className="text-3xl font-bold font-mono mb-4 text-sky">
-                Address
+                Address{" "}
+                <span className="text-sm text-white">
+                  required for home visits.
+                </span>
               </h3>
               <div>
-                <label>Street</label>
+                <label>Address</label>
                 <input
                   type="text"
                   value={street}
@@ -291,7 +294,7 @@ export const SignUp: React.FC = () => {
                   <p className="text-green text-xl mb-4">{success}</p>
                 ) : null}
 
-                <h1 className="text-2xl">Does this look correct?</h1>
+                <h1 className="text-2xl mb-3">Does this look correct?</h1>
                 <p>
                   <span className="text-sky">Name:</span> {firstName} {lastName}
                 </p>

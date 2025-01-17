@@ -3,6 +3,7 @@ interface UserCardProps {
   userData: any; // Additional user data from Firestore
 }
 import { auth } from "../firebase";
+import { formatPhoneNumberWithHyphens } from "../utilities/types";
 
 export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
   const handleLogout = async () => {
@@ -18,19 +19,29 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
     <div className="p-4 rounded flex justify-between">
       <div className="shadow-md p-2 md:p-5">
         <h2 className="text-3xl text-white">
-          Welcome,{" "}
+          Welcome,
           <span className="font-bold text-sky">
-            {userData?.firstName || user.email}
+            {userData?.firstName || user?.email}
           </span>
         </h2>
         <p className="text-off-white">
-          {userData.firstName} {userData.lastName}
+          <span className="text-sky">Name:</span>&nbsp;
+          {userData?.firstName || "First Name"}&nbsp;
+          {userData?.lastName || "Last Name"}
         </p>
-        <p className="text-white">{userData.phoneNumber}</p>
-        <p className="text-white">{userData.email}</p>
         <p className="text-white">
-          {userData.address.street}, {userData.address.city}, Texas{" "}
-          {userData.address.zipCode}
+          <span className="text-sky">Number:</span>{" "}
+          {formatPhoneNumberWithHyphens(userData?.phoneNumber) || "N/A"}
+        </p>
+        <p className="text-white">
+          <span className="text-sky">Email:</span>{" "}
+          {userData?.email || user?.email}
+        </p>
+        <p className="text-white">
+          <span className="text-sky">Address:</span>{" "}
+          {userData?.address.street || "Street not available"},{" "}
+          {userData?.address.city || "City not available"}, Texas
+          {userData?.address.zipCode || "N/A"}
         </p>
       </div>
 
