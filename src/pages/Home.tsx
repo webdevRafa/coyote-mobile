@@ -1,4 +1,6 @@
 import { HeroSection } from "../components/HeroSection";
+import { SignUp } from "../components/SignUp";
+
 import { About } from "./About";
 
 export const Home: React.FC = () => {
@@ -6,7 +8,9 @@ export const Home: React.FC = () => {
     <>
       <HeroSection />
       <About />
-      <div className="h-[500px]"></div>
+      <div className="mx-auto max-w-[800px] pb-[100px]">
+        <SignUp />
+      </div>
     </>
   );
 };

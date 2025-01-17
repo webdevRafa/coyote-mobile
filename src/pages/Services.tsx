@@ -47,7 +47,7 @@ const services = [
     ),
   },
   {
-    name: "Spinal Decompression Therapy",
+    name: "Y Strap Decompression Therapy",
     purpose: "To relieve pressure on the spine and intervertebral discs.",
     content: (
       <>

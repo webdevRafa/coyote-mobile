@@ -23,6 +23,15 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
             {userData?.firstName || user.email}
           </span>
         </h2>
+        <p className="text-off-white">
+          {userData.firstName} {userData.lastName}
+        </p>
+        <p className="text-white">{userData.phoneNumber}</p>
+        <p className="text-white">{userData.email}</p>
+        <p className="text-white">
+          {userData.address.street}, {userData.address.city}, Texas{" "}
+          {userData.address.zipCode}
+        </p>
       </div>
 
       <div>
