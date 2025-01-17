@@ -40,7 +40,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
         <p className="text-white">
           <span className="text-sky">Address:</span>{" "}
           {userData?.address.street || "Street not available"},{" "}
-          {userData?.address.city || "City not available"}, Texas
+          {userData?.address.city || "City not available"}, Texas,&nbsp;
           {userData?.address.zipCode || "N/A"}
         </p>
       </div>
