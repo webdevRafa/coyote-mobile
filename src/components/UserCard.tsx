@@ -16,7 +16,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
   };
 
   return (
-    <div className="p-4 rounded flex justify-between">
+    <div className="p-4 rounded flex justify-between max-w-[1200px] mx-auto items-start">
       <div className="shadow-md p-2 md:p-5">
         <h2 className="text-3xl text-white">
           Welcome,&nbsp;

@@ -50,7 +50,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
 
   if (appointments.length === 0) {
     return (
-      <div className="bg-white rounded shadow-md p-5 mt-10 h-full">
+      <div className="bg-white rounded shadow-md p-5 mt-10 h-full max-w-[1200px] mx-auto mb-20">
         <h2 className="text-2xl font-bold mb-4 text-gray">
           No Appointments Found
         </h2>
@@ -61,8 +61,8 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
 
   return (
     <>
-      <div className="relative">
-        <div className="p-4 rounded">
+      <div className="relative flex flex-col  md:flex-row mx-auto">
+        <div className="p-4 rounded-lg bg-gradient-to-b from-blue to-dark-gray">
           <h2 className="text-2xl my-4 text-white">Your Appointments</h2>
           <ul>
             {appointments.map((appointment) => (
@@ -130,12 +130,12 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
             </div>
           </div>
         )}
-      </div>
-      <div className="mt-10 px-4">
-        <h2 className="text-2xl font-bold mb-4 text-gray">
-          Schedule an Appointment
-        </h2>
-        <ScheduleAppointment />
+        <div className="px-4 w-full">
+          <h2 className="text-2xl font-bold mb-4 text-gray">
+            Schedule an Appointment
+          </h2>
+          <ScheduleAppointment />
+        </div>
       </div>
     </>
   );

@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 const services = [
   {
     name: "Spinal Adjustments",
@@ -46,56 +48,52 @@ const services = [
       </>
     ),
   },
-  {
-    name: "Y Strap Decompression Therapy",
-    purpose: "To relieve pressure on the spine and intervertebral discs.",
-    content: (
-      <>
-        <ul className="italic text-sky">
-          <li>Herniated or bulging discs</li>
-          <li>Sciatica or nerve compression</li>
-          <li>Degenerative disc disease</li>
-          <li>Chronic lower back pain</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    name: "Postural and Ergonomic Training",
-    purpose:
-      "To correct posture and improve workplace or lifestyle ergonomics.",
-    content: (
-      <>
-        <ul className="italic text-sky">
-          <li>Office workers with back or neck pain from prolonged sitting</li>
-          <li>Students or professionals with tech neck</li>
-          <li>Repetitive strain injuries</li>
-        </ul>
-      </>
-    ),
-  },
 ];
 
 export const Services: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % services.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? services.length - 1 : prevIndex - 1
+    );
+  };
+
+  const currentService = services[currentIndex];
+
   return (
-    <>
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white pt-28 px-10 relative bg-gray">
-        <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20 z-40">
-          {services.map((service) => (
-            <div className="bg-dark-gray p-5 shadow-md">
-              <h1 className="text-3xl mb-2 bg-gray  font-bold p-2">
-                {service.name}
-              </h1>
-              <p className="text-lg mb-2">Purpose: {service.purpose}</p>
-              <p className="font-bold">Recommended for: </p>
-              {service.content}
-            </div>
-          ))}
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white pt-28 px-10 relative">
+      <div className="w-full flex flex-col items-center">
+        {/* Current Service Display */}
+        <div className="bg-dark-gray p-5 shadow-md w-full max-w-2xl text-center">
+          <h1 className="text-3xl mb-2 font-bold text-sky">
+            {currentService.name}
+          </h1>
+          <p className="text-lg mb-2">Purpose: {currentService.purpose}</p>
+          <p className="font-bold mb-2">Recommended for: </p>
+          {currentService.content}
         </div>
-        <div className="absolute top-0 left-0 w-full h-full z-10 opacity-30">
-          <div className="nature"></div>
+
+        {/* Navigation Buttons */}
+        <div className="flex justify-between mt-5 w-full max-w-2xl">
+          <button
+            onClick={handlePrev}
+            className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded"
+          >
+            ⬅ Previous
+          </button>
+          <button
+            onClick={handleNext}
+            className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Next ➡
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
