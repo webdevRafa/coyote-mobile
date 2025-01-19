@@ -61,7 +61,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
 
   return (
     <>
-      <div className="relative flex flex-col  md:flex-row mx-auto">
+      <div className="relative flex flex-col  mx-auto">
         <div className="p-4 rounded-lg bg-gradient-to-b from-blue to-dark-gray">
           <h2 className="text-2xl my-4 text-white">Your Appointments</h2>
           <ul>
