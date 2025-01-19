@@ -96,7 +96,6 @@ export const Services: React.FC = () => {
           <div className="nature"></div>
         </div>
       </div>
-      <div className="h-[500px] bg-gradient-to-t from-gray to-dark-gray"></div>
     </>
   );
 };

@@ -7,6 +7,7 @@ import { Home } from "./pages/Home";
 import { Services } from "./pages/Services";
 import { Dashboard } from "./pages/Dashboard";
 import { Contact } from "./pages/Contact";
+import { Footer } from "./components/Footer";
 
 SignUpSignInToggle;
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </Router>
+      <Footer />
     </>
   );
 }

@@ -31,7 +31,7 @@ export const About: React.FC = () => {
       </div>
 
       <div className="mx-auto max-w-[1200px] px-3 py-10">
-        <h2 className="text-2xl md:text-3xl text-sky text-center">
+        <h2 className="text-xl md:text-3xl text-sky text-center">
           With a focus on personalized care, Dr. Hernandez uses his expertise to
           provide effective adjustments and muscle therapy tailored to your
           unique needs.
@@ -41,11 +41,10 @@ export const About: React.FC = () => {
           improve your overall mobility, our services are designed to help you
           regain control of your health and feel at ease.
         </p>
-        <p className="text-off-white text-2xl md:text-3xl mt-5 max-w-[800px] mx-auto bg-dark-gray p-5">
-          Ready to take the first step toward better health? Create an account
-          today to schedule a free consultation or request a personalized visit
-          with Dr. Hernandez. <br /> <br /> Let us help you regain your mobility
-          and feel your best!
+        <p className="text-dark-gray bg-gradient-to-b from-white to-off-white text-xl font-light rounded-sm md:text-3xl mt-5 max-w-[800px] mx-auto p-5">
+          <strong>Ready to take the first step toward better health?</strong>{" "}
+          Create an account today to schedule a free consultation or request a
+          personalized visit with Dr. Hernandez.
         </p>
       </div>
     </>
