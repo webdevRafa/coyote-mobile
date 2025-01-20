@@ -7,7 +7,9 @@ export const Navbar: React.FC = () => {
         <nav className="flex justify-between items-center p-4 bg-gray-800 text-white">
           <div className="text-2xl font-bold  flex items-center">
             <img className="h-[40px]" src={logo} alt="" />
-            <h2 className=" ml-3 text-sm">Coyote Mobile Chiropractic</h2>
+            <h2 className="hidden md:block ml-3 text-sm">
+              Coyote Mobile Chiropractic
+            </h2>
           </div>
           <div className="flex gap-4">
             <NavLink
