@@ -61,14 +61,14 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
 
   return (
     <>
-      <div className="relative flex flex-col  mx-auto">
-        <div className="p-4 rounded-lg bg-gradient-to-b from-blue to-dark-gray">
+      <div className="relative flex flex-col max-w-[1200px]  mx-auto">
+        <div className="py-4 px-6  bg-gradient-to-b from-blue to-dark-gray">
           <h2 className="text-2xl my-4 text-white">Your Appointments</h2>
           <ul>
             {appointments.map((appointment) => (
               <li
                 key={appointment.id}
-                className="p-4 mb-5 bg-off-white hover:bg-white shadow-sm hover:shadow-md animation transition ease-in-out duration-75 group"
+                className="p-4 mb-5 bg-off-white hover:bg-white shadow-md hover:shadow-md animation transition ease-in-out duration-75 group"
               >
                 <p className="mb-2">
                   <strong>Reason for Visit: </strong>
@@ -131,9 +131,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
           </div>
         )}
         <div className="px-4 w-full">
-          <h2 className="text-2xl font-bold mb-4 text-gray">
-            Schedule an Appointment
-          </h2>
+          <h2 className="text-2xl mb-4 text-white">Schedule an Appointment</h2>
           <ScheduleAppointment />
         </div>
       </div>
