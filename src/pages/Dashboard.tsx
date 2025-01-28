@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Appointment } from "../utilities/types";
+import { Appointment, formatDateTime } from "../utilities/types";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth, db } from "../firebase";
 import {
@@ -27,7 +27,13 @@ export const Dashboard: React.FC = () => {
     try {
       const userDoc = await getDoc(doc(db, "users", userId));
       if (userDoc.exists()) {
-        setUserData(userDoc.data());
+        const data = userDoc.data();
+        setUserData(data);
+        if (data.role === "doctor") {
+          fetchAllAppointments(); // Fetch all the appointments for the doctor
+        } else {
+          fetchAppointments(userId); // Fetch only the user's booking's
+        }
       } else {
         console.warn("User document doesn't exist");
       }
@@ -66,6 +72,31 @@ export const Dashboard: React.FC = () => {
       setAppointments(fetchedAppointments);
     } catch (err) {
       console.error("Error fetching appointments:", err);
+      setError("Failed to fetch appointments");
+    }
+  };
+
+  // Fetch all appointments
+  const fetchAllAppointments = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "bookings"));
+      const allAppointments: Appointment[] = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          appointmentDate: data.appointmentDate || null,
+          timeSlot: data.slot || "Unknown Slot",
+          date: data.date || "Unknown Date",
+          createdAt: data.createdAt,
+          serviceId: data.serviceId || "Unknown Service",
+          status: data.status || "Pending",
+          reasonForVisit: data.reasonForVisit || "No reason provided",
+          slot: data.slot || "Unknown Slot",
+        };
+      });
+      setAppointments(allAppointments);
+    } catch (err) {
+      console.error("Error fetching all appointments:", err);
       setError("Failed to fetch appointments");
     }
   };
@@ -123,8 +154,8 @@ export const Dashboard: React.FC = () => {
         <img src={logo} className="mb-20 w-[100px] mx-auto" alt="" />
         <div className="flex items-center justify-center h-full">
           <div>
-            <p className="text-white shadow-md p-2">
-              No User found. Please login to acess the Dashboard.
+            <p className="text-sky shadow-md p-2">
+              Please login to access the dashboard.
             </p>
             <p>{error}</p>
             <SignIn />
@@ -133,7 +164,45 @@ export const Dashboard: React.FC = () => {
       </div>
     );
   }
-
+  if (userData?.role === "doctor") {
+    return (
+      <div className="py-[100px] font-mono">
+        <h1 className="text-white text-center mb-5 text-3xl">
+          All Booked Appointments
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-10">
+          {appointments.map((doc) => (
+            <div
+              key={doc.id}
+              className="cursor-pointer rounded-md  bg-gray p-3 shadow-md border-2 border-dark-gray hover:border-sky"
+            >
+              <h1 className="text-left text-white py-2 px-1 mb-2">
+                <span className="text-sky">Reason for Visit:</span>{" "}
+                <span className="bg-dark-gray p-2 rounded-md">
+                  {doc.reasonForVisit}
+                </span>
+              </h1>
+              {/* Updated to use `slot` */}
+              <div className="bg-shade-gray p-4">
+                <p className="text-white">
+                  User: {userData.firstName} {userData.lastName}
+                </p>
+                <p className="text-white text-left">
+                  Date: {formatDateTime(doc.date) || "Unknown Date"}
+                </p>
+                <p className="text-white text-left">
+                  Time: {doc.slot || "Unknown Slot"}
+                </p>{" "}
+              </div>
+              <button className="bg-blue hover:bg-sky transition ease-in-out duration-300 rounded-sm mt-5 px-2 py-1 shadow-md">
+                MARK COMPLETE
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className=" w-full mt-20 p-3">
       <UserCard user={user} userData={userData} />
