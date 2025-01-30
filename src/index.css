@@ -14,7 +14,7 @@ li {
 
 .slideRight {
   opacity: 0;
-  animation: slideRight 600ms ease-in-out forwards;
+  animation: slideRight 500ms ease-in-out forwards;
 
 }
 .nature {
@@ -34,6 +34,49 @@ li {
   animation-delay: 1000ms;
   background-color: #202126;
   transform: translateX(-100%);
+}
+.slideUp {
+  animation: slideUp 500ms forwards ease-in-out;
+  transform: translateY(-200%);
+}
+@keyframes slideUp {
+  0% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fades {
+  0% {
+    background-color: #202126;
+  }
+  100% {
+    background-color: #19191d;
+    transform: translateX(0);
+  }
+}
+.slideDown {
+  animation: slideDown 500ms forwards ease-in-out;
+  transform: translateY(-200%);
+}
+@keyframes slideDown {
+  0% {
+    transform: translateY(-200%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 @keyframes fades {
   0% {
@@ -57,7 +100,7 @@ li {
     opacity: 0;
     transform: translateX(-100%);
   }
-  30% {
+  60% {
     opacity: 0;
   }
   100% {

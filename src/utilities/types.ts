@@ -2,8 +2,8 @@ import { Timestamp } from "firebase/firestore";
 
 export interface Appointment {
     id: string;
-    appointmentDate: Timestamp | string;
-    timeSlot: string,
+    appointmentDate?: Timestamp | string;
+    timeSlot?: string,
     date: string,
     createdAt: Timestamp;
     serviceId: string;

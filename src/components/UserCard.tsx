@@ -53,6 +53,9 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
       const userDocRef = doc(db, "users", user.uid);
       await updateDoc(userDocRef, formData);
       alert("User information updated successfully!");
+
+      window.location.reload();
+
       setUpdating(false);
     } catch (error) {
       console.error("Error updating user information:", error);
@@ -61,41 +64,41 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
   };
 
   return (
-    <div className="md:p-4 rounded flex gap-2 justify-between max-w-[1200px] mx-auto items-start">
-      <div className="shadow-md p-2 md:p-5  border-t-sky border-t-2 relative">
-        <h2 className="text-3xl text-white border-b-dark-gray border-b-2 pb-1">
+    <div className="md:px-4 rounded flex gap-2 justify-between max-w-[1200px] mx-auto items-start uppercase font-mono">
+      <div className="shadow-md p-2 md:p-5  border-t-sky  border-t-2 border-b-4 rounded-2xl md:rounded-3xl relative fadeIn">
+        <h2 className="text-3xl text-white pb-1 bg-dark-gray p-2 mt-1 mb-3 rounded-t-lg text-center">
           Welcome,&nbsp;
           <span className="font-bold text-sky">
             {userData?.firstName || user?.email}
           </span>
         </h2>
-        <p className="text-off-white  pb-1">
+        <p className="text-off-white pb-1 text-sm">
           <span className="text-sky">Name:</span>&nbsp;
           {userData?.firstName || "First Name"}&nbsp;
           {userData?.lastName || "Last Name"}
         </p>
-        <p className="text-white  pb-1">
+        <p className="text-white  pb-1 text-sm">
           <span className="text-sky">Number:</span>{" "}
           {formatPhoneNumberWithHyphens(userData?.phoneNumber) || "N/A"}
         </p>
-        <p className="text-white  pb-1">
+        <p className="text-white  pb-1 text-sm">
           <span className="text-sky">Email:</span>{" "}
           {userData?.email || user?.email}
         </p>
-        <p className="text-white  pb-1">
+        <p className="text-white pb-1 text-sm mb-4">
           <span className="text-sky">Address:</span>{" "}
           {userData?.address?.street || "Street not available"},{" "}
-          {userData?.address?.city || "City not available"}, Texas,&nbsp;
+          {userData?.address?.city || "City not available"},&nbsp;
           {userData?.address?.zipCode || "N/A"}
         </p>
         <button
           onClick={() => setUpdating(true)}
-          className="bg-sky mt-1 px-2 py-1 rounded-md"
+          className="bg-sky font-bold text-dark-gray mt-1 mb-3 px-2 py-1 rounded-sm hover:scale-105 transition duration-75"
         >
           update info
         </button>
         {updating && (
-          <div className="absolute top-0 left-0 w-full h-full bg-gray p-2 ">
+          <div className="absolute top-0 left-0 w-full h-full bg-gray py-4 px-2 mt-[-10px] slideDown">
             <div className="w-full flex justify-between items-center">
               <h2 className="text-sky font-bold text-lg">Update Your Info</h2>
               <FaWindowClose
@@ -104,26 +107,29 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
               />
             </div>
             <form className="mt-4 bg-gray py-2 px-4 shadow-md">
-              <label className="text-white">
-                First Name:
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  className="w-full my-2 p-2 rounded text-dark-gray"
-                />
-              </label>
-              <label className="text-white">
-                Last Name:
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  className="w-full my-2 p-2 rounded text-dark-gray"
-                />
-              </label>
+              <div className="flex gap-5 space-around justify-between">
+                <label className="text-white">
+                  First Name:
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    className="w-full my-2 p-2 rounded text-dark-gray"
+                  />
+                </label>
+                <label className="text-white">
+                  Last Name:
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    className="w-full my-2 p-2 rounded text-dark-gray"
+                  />
+                </label>
+              </div>
+
               <label className="text-white">
                 Email:
                 <input
@@ -177,7 +183,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
               <button
                 type="button"
                 onClick={handleUpdate}
-                className="bg-sky px-4 py-2 rounded text-white"
+                className="bg-sky px-4 py-2 mb-10 rounded text-white"
               >
                 Save
               </button>

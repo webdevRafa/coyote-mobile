@@ -105,71 +105,34 @@ export const SignUp: React.FC = () => {
           {/* Step 1 */}
           {currentStep === 1 && (
             <>
-              <h2 className="text-3xl font-bold mb-5 text-sky font-mono">
-                Get started
-              </h2>
-              <p className="mb-5">
-                It's a quick and simple process! We just need a few things.
+              <h1 className="text-2xl text-center mb-2 font-mono">
+                GET STARTED
+              </h1>
+              <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm  font-bold text-center border-b-gray border-b-2 pb-2">
+                create an account to take your next step into better health
               </p>
-              <h3 className="text-xl font-bold mb-4">Create a login</h3>
-              <div>
-                <label>Email</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2 border rounded mb-4 text-dark-gray"
-                  required
-                />
-              </div>
-              <div>
-                <label>Password</label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full p-2 border rounded mb-4 text-dark-gray"
-                  required
-                />
-              </div>
-              <div>
-                <label>Confirm Password</label>
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full p-2 border rounded mb-4 text-dark-gray"
-                  required
-                />
-              </div>
-            </>
-          )}
 
-          {/* Step 2 */}
-          {currentStep === 2 && (
-            <>
-              <h3 className="text-3xl font-bold font-mono mb-4 text-sky">
-                About you
-              </h3>
-              <div>
-                <label>First Name</label>
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="w-full p-2 border rounded mb-4 text-dark-gray"
-                  required
-                />
-              </div>
-              <div>
-                <label>Last Name</label>
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="w-full p-2 border rounded mb-4 text-dark-gray"
-                  required
-                />
+              <div className="flex gap-2 space-around justify-between">
+                <div className="w-full">
+                  <label>First Name</label>
+                  <input
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="w-full p-2 border rounded mb-4 text-dark-gray"
+                    required
+                  />
+                </div>
+                <div className="w-full">
+                  <label>Last Name</label>
+                  <input
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="w-full p-2 border rounded mb-4 text-dark-gray"
+                    required
+                  />
+                </div>
               </div>
               <div>
                 <label>Phone Number</label>
@@ -192,64 +155,106 @@ export const SignUp: React.FC = () => {
             </>
           )}
 
-          {/* Step 3 */}
-          {currentStep === 3 && (
+          {/* Step 2 */}
+          {currentStep === 2 && (
             <>
-              <h3 className="text-3xl font-bold font-mono mb-4 text-sky">
-                Address{" "}
-                <span className="text-sm text-white">
-                  required for home visits.
-                </span>
-              </h3>
-              <div>
-                <label>Address</label>
-                <input
-                  type="text"
-                  value={street}
-                  onChange={(e) => setStreet(e.target.value)}
-                  className="w-full p-2 border rounded mb-4 text-dark-gray"
-                />
-              </div>
-              <div>
-                <label>City</label>
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  className="w-full p-2 border rounded mb-4 text-dark-gray"
-                />
-              </div>
+              <div className="slideDown">
+                <h1 className="text-2xl text-center mb-2 font-mono">ADDRESS</h1>
+                <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm  font-bold text-center border-b-gray border-b-2 pb-2">
+                  this is required for home visits
+                </p>
 
-              <div>
-                <label>Zip Code</label>
-                <input
-                  type="text"
-                  value={zipCode}
-                  onChange={(e) => setZipCode(e.target.value)}
-                  className="w-full p-2 border rounded mb-4 text-dark-gray"
-                />
+                <div>
+                  <label>Address</label>
+                  <input
+                    type="text"
+                    value={street}
+                    onChange={(e) => setStreet(e.target.value)}
+                    className="w-full p-2 border rounded mb-4 text-dark-gray"
+                  />
+                </div>
+                <div>
+                  <label>City</label>
+                  <input
+                    type="text"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className="w-full p-2 border rounded mb-4 text-dark-gray"
+                  />
+                </div>
+
+                <div>
+                  <label>Zip Code</label>
+                  <input
+                    type="text"
+                    value={zipCode}
+                    onChange={(e) => setZipCode(e.target.value)}
+                    className="w-full p-2 border rounded mb-4 text-dark-gray"
+                  />
+                </div>
               </div>
             </>
           )}
+          {/* Step 3 */}
+          {currentStep === 3 && (
+            <>
+              <div className="slideRight">
+                <h1 className="text-2xl text-center mb-2 font-mono">
+                  ADDITIONAL INFO
+                </h1>
+                <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm  font-bold text-center border-b-gray border-b-2 pb-2">
+                  please add anything you would like to share
+                </p>
 
+                <div>
+                  <textarea
+                    required
+                    value={additionalInfo}
+                    onChange={(e) => setAdditionalInfo(e.target.value)}
+                    className="w-full p-2 border rounded mb-4 text-dark-gray mt-4"
+                  />
+                </div>
+              </div>
+            </>
+          )}
           {/* Step 4 */}
           {currentStep === 4 && (
             <>
-              <h3 className="text-3xl font-bold font-mono mb-4 text-sky">
-                Additional Info
-              </h3>
+              <div className="slideRight">
+                <h1 className="text-2xl text-center mb-2 font-mono border-b-2 border-b-gray">
+                  CREATE YOUR LOGIN
+                </h1>
 
-              <div>
-                <label className="text-lg">
-                  Please add any info you would like to share with Dr.
-                  Hernandez:
-                </label>
-                <textarea
-                  required
-                  value={additionalInfo}
-                  onChange={(e) => setAdditionalInfo(e.target.value)}
-                  className="w-full p-2 border rounded mb-4 text-dark-gray mt-4"
-                />
+                <div>
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full p-2 border rounded mb-4 text-dark-gray"
+                    required
+                  />
+                </div>
+                <div>
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full p-2 border rounded mb-4 text-dark-gray"
+                    required
+                  />
+                </div>
+                <div className="mb-5">
+                  <label>Confirm Password</label>
+                  <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="w-full p-2 border rounded mb-4 text-dark-gray"
+                    required
+                  />
+                </div>
               </div>
             </>
           )}
@@ -284,7 +289,7 @@ export const SignUp: React.FC = () => {
             )}
           </div>
           {confirming && (
-            <div className="absolute w-full h-full top-0 left-0 z-50 bg-gray flex flex-col items-center justify-center px-2">
+            <div className="absolute w-full h-full top-0 left-0 z-50 bg-gray flex flex-col items-center justify-center px-2 slideUp">
               <div>
                 {error ? (
                   <p className="text-white text-md bg-dark-gray p-2 mb-4">
@@ -295,21 +300,24 @@ export const SignUp: React.FC = () => {
                 ) : null}
 
                 <h1 className="text-2xl mb-3">Does this look correct?</h1>
-                <p>
+                <p className="mb-1">
                   <span className="text-sky">Name:</span> {firstName} {lastName}
                 </p>
                 <p>
                   <span className="text-sky">Phone: </span>
                   {formatPhoneNumberWithHyphens(phoneNumber)}
                 </p>
-                <p>
+                <p className="mb-1">
                   <span className="text-sky">Email:</span> {email}
                 </p>
-                <p>
-                  <span className="text-sky">Address: </span> {street}, {city},
-                  Texas {zipCode}
+                <p className="mb-1">
+                  <span className="text-sky">Address: </span> {street},{" "}
+                  {zipCode}
                 </p>
-                <p>
+                <p className="mb-1">
+                  <span className="text-sky">City: </span> {city}
+                </p>
+                <p className="mb-1">
                   <span className="text-sky">DOB: </span>{" "}
                   {formatDateOfBirth(dateOfBirth)}
                 </p>
