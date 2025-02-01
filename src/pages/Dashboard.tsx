@@ -302,7 +302,7 @@ export const Dashboard: React.FC = () => {
   if (userData?.role === "doctor") {
     return (
       <div className="py-[100px] font-mono">
-        <h1 className="text-white text-center mb-5 text-3xl">
+        <h1 className="text-white text-center mb-5 text-2xl">
           All Booked Appointments
         </h1>
         {/* Toggle Buttons */}
