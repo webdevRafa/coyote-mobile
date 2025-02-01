@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { BackgroundVideo } from "../components/BackgroundVideo";
 import { GrNext } from "react-icons/gr";
 import { MdArrowBackIos } from "react-icons/md";
-import VideoComponent from "../components/VideoComponent";
 
 const services = [
   {
