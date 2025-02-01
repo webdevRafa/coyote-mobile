@@ -64,41 +64,43 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
   };
 
   return (
-    <div className="md:px-4 rounded flex gap-2 justify-between max-w-[1200px] mx-auto items-start uppercase font-mono">
-      <div className="shadow-md p-2 md:p-5  border-t-sky  border-t-2 border-b-4 rounded-2xl md:rounded-3xl relative fadeIn">
-        <h2 className="text-3xl text-white pb-1 bg-dark-gray p-2 mt-1 mb-3 rounded-t-lg text-center">
-          Welcome,&nbsp;
-          <span className="font-bold text-sky">
-            {userData?.firstName || user?.email}
-          </span>
-        </h2>
-        <p className="text-off-white pb-1 text-sm">
-          <span className="text-sky">Name:</span>&nbsp;
-          {userData?.firstName || "First Name"}&nbsp;
-          {userData?.lastName || "Last Name"}
-        </p>
-        <p className="text-white  pb-1 text-sm">
-          <span className="text-sky">Number:</span>{" "}
-          {formatPhoneNumberWithHyphens(userData?.phoneNumber) || "N/A"}
-        </p>
-        <p className="text-white  pb-1 text-sm">
-          <span className="text-sky">Email:</span>{" "}
-          {userData?.email || user?.email}
-        </p>
-        <p className="text-white pb-1 text-sm mb-4">
-          <span className="text-sky">Address:</span>{" "}
-          {userData?.address?.street || "Street not available"},{" "}
-          {userData?.address?.city || "City not available"},&nbsp;
-          {userData?.address?.zipCode || "N/A"}
-        </p>
+    <div className="relative z-40 mt-10 rounded flex gap-2 justify-between max-w-[1200px] mx-auto items-start uppercase font-mono bg-dark-gray">
+      <div className="shadow-md relative fadeIn">
+        <div className="p-5">
+          <h2 className="text-2xl text-white pb-1 bg-dark-gray mt-1 mb-3 rounded-t-lg text-left">
+            Welcome,&nbsp;
+            <span className="font-bold text-sky">
+              {userData?.firstName || user?.email}
+            </span>
+          </h2>
+          <p className="text-off-white pb-1 text-sm">
+            <span className="text-sky">Name:</span>&nbsp;
+            {userData?.firstName || "First Name"}&nbsp;
+            {userData?.lastName || "Last Name"}
+          </p>
+          <p className="text-white  pb-1 text-sm">
+            <span className="text-sky">Number:</span>{" "}
+            {formatPhoneNumberWithHyphens(userData?.phoneNumber) || "N/A"}
+          </p>
+          <p className="text-white  pb-1 text-sm">
+            <span className="text-sky">Email:</span>{" "}
+            {userData?.email || user?.email}
+          </p>
+          <p className="text-white pb-1 text-sm mb-4">
+            <span className="text-sky">Address:</span>{" "}
+            {userData?.address?.street || "Street not available"},{" "}
+            {userData?.address?.city || "City not available"},&nbsp;
+            {userData?.address?.zipCode || "N/A"}
+          </p>
+        </div>
         <button
           onClick={() => setUpdating(true)}
-          className="bg-sky font-bold text-dark-gray mt-1 mb-3 px-2 py-1 rounded-sm hover:scale-105 transition duration-75"
+          className="bg-gradient-to-t from-dark-gray to-gray shadow-md text-white px-2 py-1 border-r-2 border-r-gray"
         >
           update info
         </button>
         {updating && (
-          <div className="absolute top-0 left-0 w-full h-full bg-gray py-4 px-2 mt-[-10px] slideDown">
+          <div className="absolute z-50 top-0 left-0 w-full h-full bg-gray py-4 px-2 mt-[-10px] slideDown">
             <div className="w-full flex justify-between items-center">
               <h2 className="text-sky font-bold text-lg">Update Your Info</h2>
               <FaWindowClose
@@ -195,7 +197,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
       <div>
         <button
           onClick={handleLogout}
-          className="bg-red p-1 rounded text-white shadow-md hover:scale-105 transition ease-in-out duration-75"
+          className=" p-2  text-white bg-gradient-to-b from-red to-dark-red"
         >
           Logout
         </button>

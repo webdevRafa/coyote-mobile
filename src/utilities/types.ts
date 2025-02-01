@@ -9,7 +9,11 @@ export interface Appointment {
     serviceId: string;
     status: string;
     reasonForVisit: string;
+    painLevel: string;
     slot?: string;
+    firstName: string;
+    lastName: string;
+    notes: string;
 }
 
 export const formatDateTime = (date: string): string => {

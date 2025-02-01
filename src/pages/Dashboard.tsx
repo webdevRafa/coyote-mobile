@@ -27,10 +27,17 @@ export const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"pending" | "completed">(
     "pending"
   );
+  const [notes, setNotes] = useState<{ [key: string]: string }>({});
   const [completedAppointments, setCompletedAppointments] = useState<
     Appointment[]
   >([]);
 
+  const handleNotesChange = (appointmentId: string, newNote: string) => {
+    setNotes((prevNotes) => ({
+      ...prevNotes,
+      [appointmentId]: newNote,
+    }));
+  };
   // Function to fetch appointments
   const fetchAppointments = async (userId: string) => {
     try {
@@ -68,20 +75,44 @@ export const Dashboard: React.FC = () => {
   const fetchAllAppointments = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "bookings"));
-      const allAppointments: Appointment[] = querySnapshot.docs.map((doc) => {
-        const data = doc.data();
-        return {
-          id: doc.id,
-          appointmentDate: data.appointmentDate || null,
-          timeSlot: data.slot || "Unknown Slot",
-          date: data.date || "Unknown Date",
-          createdAt: data.createdAt,
-          serviceId: data.serviceId || "Unknown Service",
-          status: data.status || "Pending",
-          reasonForVisit: data.reasonForVisit || "No reason provided",
-          slot: data.slot || "Unknown Slot",
-        };
-      });
+
+      const allAppointments: Appointment[] = (
+        await Promise.all(
+          querySnapshot.docs.map(async (docSnap) => {
+            const data = docSnap.data();
+
+            // Ensure userId exists in the booking document
+            if (!data.userId) {
+              console.warn("Missing userId in appointment:", docSnap.id);
+              return null; // Return null for missing userId
+            }
+
+            // Fetch user details from the "users" collection
+            const userRef = doc(db, "users", data.userId);
+            const userSnap = await getDoc(userRef);
+            const userData = userSnap.exists() ? userSnap.data() : null;
+
+            // Ensure userData exists before adding to the object
+            return {
+              id: docSnap.id,
+              appointmentDate: data.appointmentDate || null,
+              timeSlot: data.slot || "Unknown Slot",
+              date: data.date || "Unknown Date",
+              createdAt: data.createdAt,
+              serviceId: data.serviceId || "Unknown Service",
+              status: data.status || "Pending",
+              reasonForVisit: data.reasonForVisit || "No reason provided",
+              painLevel: data.painLevel || "No pain provided",
+              slot: data.slot || "Unknown Slot",
+              firstName: userData?.firstName ?? "Unknown",
+              lastName: userData?.lastName ?? "User",
+            } as Appointment;
+          })
+        )
+      ).filter(
+        (appointment): appointment is Appointment => appointment !== null
+      );
+
       setAppointments(allAppointments);
     } catch (err) {
       console.error("Error fetching all appointments:", err);
@@ -94,27 +125,50 @@ export const Dashboard: React.FC = () => {
     try {
       const querySnapshot = await getDocs(collection(db, "completedBookings"));
 
-      const completed: Appointment[] = querySnapshot.docs.map((doc) => {
-        const data = doc.data();
+      const completed: Appointment[] = (
+        await Promise.all(
+          querySnapshot.docs.map(async (docSnap) => {
+            const data = docSnap.data();
 
-        return {
-          id: doc.id,
-          date: data.date || "Unknown Date",
-          slot: data.slot || "Unknown Slot",
-          serviceId: data.serviceId || "Unknown Service",
-          status: data.status || "Completed",
-          reasonForVisit: data.reasonForVisit || "No reason provided",
-          createdAt: data.createdAt?.toDate?.() || data.createdAt || null,
-          appointmentDate: data.appointmentDate || data.date || null, // Ensure this field is present
-          timeSlot: data.slot || "Unknown Slot", // Ensure this field is present
-        };
-      });
+            if (!data.userId) {
+              console.warn(
+                "Missing userId in completed appointment:",
+                docSnap.id
+              );
+              return null; // Skip if there's no userId
+            }
+
+            // Fetch user details from the "users" collection
+            const userRef = doc(db, "users", data.userId);
+            const userSnap = await getDoc(userRef);
+            const userData = userSnap.exists() ? userSnap.data() : null;
+
+            return {
+              id: docSnap.id,
+              date: data.date || "Unknown Date",
+              slot: data.slot || "Unknown Slot",
+              serviceId: data.serviceId || "Unknown Service",
+              status: data.status || "Completed",
+              reasonForVisit: data.reasonForVisit || "No reason provided",
+              painLevel: data.painLevel || "No pain provided",
+              appointmentDate: data.appointmentDate || data.date || null,
+              timeSlot: data.slot || "Unknown Slot",
+              firstName: userData?.firstName ?? "Unknown",
+              lastName: userData?.lastName ?? "User",
+              notes: data.notes,
+            } as Appointment;
+          })
+        )
+      ).filter(
+        (appointment): appointment is Appointment => appointment !== null
+      );
 
       setCompletedAppointments(completed);
     } catch (err) {
       console.error("Error fetching completed appointments:", err);
     }
   };
+
   // function to remove appointment from the state
   const handleRemoveAppointment = () => {
     setAppointments((prevAppointments) =>
@@ -123,7 +177,10 @@ export const Dashboard: React.FC = () => {
       )
     );
   };
-  const markAppointmentComplete = async (appointmentId: string) => {
+  const markAppointmentComplete = async (
+    appointmentId: string,
+    notes: string
+  ) => {
     try {
       const appointmentRef = doc(db, "bookings", appointmentId);
       const appointmentSnap = await getDoc(appointmentRef);
@@ -136,11 +193,12 @@ export const Dashboard: React.FC = () => {
       const appointmentData = appointmentSnap.data();
       const { date, slot } = appointmentData; // Extract date and slot info
 
-      // Move appointment to completedBookings collection
+      // Move appointment to completedBookings collection with notes
       await setDoc(doc(db, "completedBookings", appointmentId), {
         ...appointmentData,
         status: "completed",
         completedAt: new Date(), // Add timestamp for completion
+        notes: notes || "no notes provided",
       });
 
       // Delete the original appointment from "bookings"
@@ -283,10 +341,10 @@ export const Dashboard: React.FC = () => {
                     {doc.reasonForVisit}
                   </span>
                 </h1>
-                {/* Updated to use `slot` */}
+                {/* Appointment Info */}
                 <div className="bg-shade-gray p-4">
                   <p className="text-white">
-                    User: {userData.firstName} {userData.lastName}
+                    User: {doc.firstName} {doc.lastName}
                   </p>
                   <p className="text-white text-left">
                     Date: {formatDateTime(doc.date) || "Unknown Date"}
@@ -294,9 +352,22 @@ export const Dashboard: React.FC = () => {
                   <p className="text-white text-left">
                     Time: {doc.slot || "Unknown Slot"}
                   </p>{" "}
+                  <p className="text-white text-left">
+                    Pain Level: {doc.painLevel}
+                  </p>
+                  <p className="text-white text-left">
+                    Reason for Visit: {doc.reasonForVisit}
+                  </p>
                 </div>
+                {/* Chriropractor Notes Input */}
+                <textarea
+                  className="w-full mt-2 p-2 rounded bg-dark-gray text-white"
+                  placeholder="Add chiropractor notes..."
+                  value={notes[doc.id] || ""}
+                  onChange={(e) => handleNotesChange(doc.id, e.target.value)}
+                ></textarea>
                 <button
-                  onClick={() => markAppointmentComplete(doc.id)}
+                  onClick={() => markAppointmentComplete(doc.id, notes[doc.id])}
                   className="bg-blue hover:bg-sky transition ease-in-out duration-300 rounded-sm mt-5 px-2 py-1 shadow-md"
                 >
                   MARK COMPLETE
@@ -311,15 +382,9 @@ export const Dashboard: React.FC = () => {
                 key={doc.id}
                 className="cursor-pointer rounded-md mb-5 bg-gray p-3 shadow-md border-2 border-dark-gray hover:border-green-500"
               >
-                <h1 className="text-left text-white py-2 px-1 mb-2">
-                  <span className="text-green-400">Completed Visit:</span>{" "}
-                  <span className="bg-dark-gray p-2 rounded-md">
-                    {doc.reasonForVisit}
-                  </span>
-                </h1>
                 <div className="bg-shade-gray p-4">
                   <p className="text-white">
-                    User: {userData.firstName} {userData.lastName}
+                    User: {doc.firstName} {doc.lastName}
                   </p>
                   <p className="text-white text-left">
                     Date: {formatDateTime(doc.date) || "Unknown Date"}
@@ -327,8 +392,16 @@ export const Dashboard: React.FC = () => {
                   <p className="text-white text-left">
                     Time: {doc.slot || "Unknown Slot"}
                   </p>
+                  <p className="text-white text-left">
+                    Reason: {doc.reasonForVisit || "Unknown Reason"}
+                  </p>
+                  {/* Display Chiropractor Notes */}
+                  <p className="text-white text-left mt-3 bg-dark-gray p-5">
+                    <span className="text-green-400">Chiropractor Notes:</span>{" "}
+                    {doc.notes || "No notes provided"}
+                  </p>
                 </div>
-                <p className="text-center text-green-400 mt-4">✅ Completed</p>
+                <p className="text-center text-white mt-4">✅ Completed</p>
               </div>
             ))}
         </div>

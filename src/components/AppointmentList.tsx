@@ -50,9 +50,9 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
 
   if (appointments.length === 0) {
     return (
-      <div className="bg-white rounded shadow-md p-5 mt-10 h-full max-w-[1200px] mx-auto mb-20">
-        <h2 className="text-2xl font-bold mb-4 text-gray">
-          No Appointments Found
+      <div className="bg-dark-gray border-8 border-y-gray border-x-shade-gray rounded shadow-md p-10 mt-10 h-full max-w-[1200px] mx-auto mb-20">
+        <h2 className="text-md md:text-lg mb-4 text-white">
+          You don't have any appointments.
         </h2>
         <ScheduleAppointment />
       </div>
@@ -61,14 +61,14 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
 
   return (
     <>
-      <div className="relative flex flex-col max-w-[1200px]  mx-auto">
-        <div className="py-4 px-6  bg-gradient-to-b from-blue to-dark-gray">
+      <div className="relative flex flex-col max-w-[1200px]  mx-auto my-20">
+        <div className="py-4 px-6  bg-gradient-to-b from-gray shadow-md to-dark-gray">
           <h2 className="text-2xl my-4 text-white">Your Appointments</h2>
           <ul>
             {appointments.map((appointment) => (
               <li
                 key={appointment.id}
-                className="p-4 mb-5 bg-off-white hover:bg-white shadow-md hover:shadow-md animation transition ease-in-out duration-75 group"
+                className="py-8 px-4 mb-5 max-w-[600px] border-8 border-dark-gray bg-off-white hover:bg-white shadow-md hover:shadow-md animation transition ease-in-out duration-75 group"
               >
                 <p className="mb-2">
                   <strong>Reason for Visit: </strong>
@@ -91,7 +91,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
                 </p>
                 <button
                   onClick={() => handleManage(appointment)}
-                  className="font-mono bg-dark-gray p-1 rounded-sm text-white transition ease-in-out duration-300 group-hover:bg-blue"
+                  className="font-mono bg-blue p-1 px-4 rounded-sm text-white "
                 >
                   Manage
                 </button>
@@ -100,7 +100,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
           </ul>
         </div>
         {managing && selectedAppointment && (
-          <div className="w-full h-full absolute top-0 left-0 bg-off-white flex items-center justify-center">
+          <div className="z-40 w-full h-full absolute top-0 left-0 bg-off-white flex items-center justify-center">
             <div>
               <h1 className=" text-gray mb-2">
                 <strong>Reason for Visit: </strong>{" "}
@@ -130,8 +130,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
             </div>
           </div>
         )}
-        <div className="px-4 w-full">
-          <h2 className="text-2xl mb-4 text-white">Schedule an Appointment</h2>
+        <div className="px-4 my-5  w-full">
           <ScheduleAppointment />
         </div>
       </div>
