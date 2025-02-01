@@ -30,11 +30,11 @@ export const BackgroundVideo: React.FC = () => {
       playsInline
       className="opacity-10 blur-sm"
       style={{
-        position: "fixed",
+        position: "relative",
         top: 0,
         left: 0,
         width: "100%",
-        height: "100%",
+        height: "600px",
         objectFit: "cover",
         zIndex: -1,
       }}

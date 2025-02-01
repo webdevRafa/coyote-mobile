@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BackgroundVideo } from "../components/BackgroundVideo";
 import { GrNext } from "react-icons/gr";
 import { MdArrowBackIos } from "react-icons/md";
+import VideoComponent from "../components/VideoComponent";
 
 const services = [
   {
@@ -10,7 +11,7 @@ const services = [
       "To restore joint mobility, relieve pain, and improve functionality",
     content: (
       <>
-        <ul className="italic py-5 px-2 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
+        <ul className="italic p-5 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
           <li className="border-b-2 border-b-shade">Back pain</li>
           <li className="border-b-2 border-b-shade">Neck pain or stiffness</li>
           <li className="border-b-2 border-b-shade">
@@ -32,7 +33,7 @@ const services = [
       "To relax tight muscles, reduce scar tissue, and improve blood flow.",
     content: (
       <>
-        <ul className="italic py-5 px-2 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
+        <ul className="italic p-5 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
           <li className="border-b-2 border-b-shade">
             Muscle tension or spasms
           </li>
@@ -56,7 +57,7 @@ const services = [
       "To strengthen weak muscles, improve posture, and prevent injuries.",
     content: (
       <>
-        <ul className="italic py-5 px-2 text-dark-gray bg-gradient-to-b from-white to-off-white max-w-[400px] mx-auto text-left">
+        <ul className="italic p-5 text-dark-gray bg-gradient-to-b from-white to-off-white max-w-[400px] mx-auto text-left">
           <li className="border-b-2 border-b-shade">
             Muscle imbalances or poor posture
           </li>
@@ -91,29 +92,34 @@ export const Services: React.FC = () => {
   const currentService = services[currentIndex];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900 md:justify-center text-white pt-28 px-10 relative">
-      <BackgroundVideo />
-      <div className="w-full flex flex-col items-start justify-start">
+    <div className="text-white pt-28 px-10 relative py-20 w-full flex flex-col md:flex-row items-center justify-center">
+      <div className="md:translate-x-[25%] translate-y-[10%] md:translate-y-0">
         {/* Current Service Display */}
-        <div className="bg-gradient-to-t from-gray to-dark-gray p-5 shadow-md w-full max-w-2xl text-center">
-          <h1 className="text-3xl mb-5 font-bold text-sky">
-            {currentService.name}
-          </h1>
-          <p className="text-lg mb-2">Purpose: {currentService.purpose}</p>
-          <p className="font-bold mb-2 mt-5">Recommended for: </p>
-          {currentService.content}
+        <div className="bg-gradient-to-t from-gray to-dark-gray py-14 px-10 shadow-md w-full max-w-2xl text-center">
+          <div className="slideRight">
+            <h1 className="text-3xl mb-5 font-bold text-sky">
+              {currentService.name}
+            </h1>
+            <p className="text-lg mb-2">{currentService.purpose}</p>
+            <p className="font-bold mb-2 mt-5">Recommended for: </p>
+            {currentService.content}
+          </div>
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex justify-between mt-5 w-full max-w-2xl">
+        <div className="flex fadeIn justify-between mt-5 w-full max-w-2xl">
           <MdArrowBackIos
             onClick={handlePrev}
-            className="size-7 hover:text-sky"
+            className="size-7 hover:text-sky cursor-pointer"
           />
 
-          <GrNext className="size-7 hover:text-sky" onClick={handleNext} />
+          <GrNext
+            className="size-7 hover:text-sky cursor-pointer"
+            onClick={handleNext}
+          />
         </div>
       </div>
+      <BackgroundVideo />
     </div>
   );
 };

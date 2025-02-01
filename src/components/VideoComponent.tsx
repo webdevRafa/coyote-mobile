@@ -21,7 +21,7 @@ const VideoComponent: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex justify-center h-[400px] md:h-[500px]">
+    <div className="flex justify-center h-[400px] md:h-[500px] shadow-xl ">
       {videoURL ? (
         <video controls width="600">
           <source src={videoURL} type="video/mp4" />

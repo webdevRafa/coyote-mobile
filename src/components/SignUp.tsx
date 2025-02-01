@@ -92,9 +92,9 @@ export const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-center w-[90%] md:w-full mx-auto text-white bg-dark-gray shadow-md border-sky border-t-2 border-b-2">
-      <div className="py-6 px-5 md:px-20 w-full">
-        <div className="py-6 px-5 md:px-20 w-full">
+    <div className="relative flex items-center justify-center px-10 w-full mx-auto text-white bg-gray shadow-lg ">
+      <div className="py-6 w-full">
+        <div className="py-6 md:px-20 w-full">
           {error ? (
             <p className="text-red text-xl mb-4">{error}</p>
           ) : success ? (
@@ -112,7 +112,7 @@ export const SignUp: React.FC = () => {
                 create an account to take your next step into better health
               </p>
 
-              <div className="flex gap-2 space-around justify-between">
+              <div className="flex gap-2 space-around justify-between max-w-[700px] mx-auto">
                 <div className="w-full">
                   <label>First Name</label>
                   <input
@@ -158,7 +158,7 @@ export const SignUp: React.FC = () => {
           {/* Step 2 */}
           {currentStep === 2 && (
             <>
-              <div className="slideDown">
+              <div className="slideRight">
                 <h1 className="text-2xl text-center mb-2 font-mono">ADDRESS</h1>
                 <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm  font-bold text-center border-b-gray border-b-2 pb-2">
                   this is required for home visits
@@ -251,7 +251,7 @@ export const SignUp: React.FC = () => {
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full p-2 border rounded mb-4 text-dark-gray"
+                    className="w-full p-2 border rounded text-dark-gray"
                     required
                   />
                 </div>
@@ -260,7 +260,7 @@ export const SignUp: React.FC = () => {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between">
+          <div className="flex justify-between mt-14">
             {currentStep > 1 && (
               <button
                 type="button"
