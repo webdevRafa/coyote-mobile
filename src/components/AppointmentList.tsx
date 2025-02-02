@@ -51,9 +51,6 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
   if (appointments.length === 0) {
     return (
       <div className="bg-dark-gray border-8 border-y-gray border-x-shade-gray rounded shadow-md p-10 mt-10 h-full max-w-[1200px] mx-auto mb-20">
-        <h2 className="text-md md:text-lg mb-4 text-white">
-          You don't have any appointments.
-        </h2>
         <ScheduleAppointment />
       </div>
     );

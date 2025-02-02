@@ -105,14 +105,14 @@ export const SignUp: React.FC = () => {
           {/* Step 1 */}
           {currentStep === 1 && (
             <>
-              <h1 className="text-2xl text-center mb-2 font-mono">
+              <h1 className="text-2xl text-center mb-2 font-bona">
                 GET STARTED
               </h1>
-              <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm  font-bold text-center border-b-gray border-b-2 pb-2">
+              <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm font-bona font-bold text-center border-b-gray border-b-2 pb-2">
                 create an account to take your next step into better health
               </p>
 
-              <div className="flex gap-2 space-around justify-between max-w-[700px] mx-auto">
+              <div className="flex gap-2 space-around justify-between max-w-[700px] mx-auto font-bona">
                 <div className="w-full">
                   <label>First Name</label>
                   <input
@@ -134,7 +134,7 @@ export const SignUp: React.FC = () => {
                   />
                 </div>
               </div>
-              <div>
+              <div className="font-bona">
                 <label>Phone Number</label>
                 <input
                   type="text"
@@ -143,7 +143,7 @@ export const SignUp: React.FC = () => {
                   className="w-full p-2 border rounded mb-4 text-dark-gray"
                 />
               </div>
-              <div>
+              <div className="font-bona">
                 <label>Date of Birth</label>
                 <input
                   type="date"
@@ -158,7 +158,7 @@ export const SignUp: React.FC = () => {
           {/* Step 2 */}
           {currentStep === 2 && (
             <>
-              <div className="slideRight">
+              <div className="slideRight font-bona">
                 <h1 className="text-2xl text-center mb-2 font-mono">ADDRESS</h1>
                 <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm  font-bold text-center border-b-gray border-b-2 pb-2">
                   this is required for home visits
@@ -198,10 +198,8 @@ export const SignUp: React.FC = () => {
           {/* Step 3 */}
           {currentStep === 3 && (
             <>
-              <div className="slideRight">
-                <h1 className="text-2xl text-center mb-2 font-mono">
-                  ADDITIONAL INFO
-                </h1>
+              <div className="slideRight font-bona">
+                <h1 className="text-2xl text-center mb-2">ADDITIONAL INFO</h1>
                 <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm  font-bold text-center border-b-gray border-b-2 pb-2">
                   please add anything you would like to share
                 </p>
@@ -220,8 +218,8 @@ export const SignUp: React.FC = () => {
           {/* Step 4 */}
           {currentStep === 4 && (
             <>
-              <div className="slideRight">
-                <h1 className="text-2xl text-center mb-2 font-mono border-b-2 border-b-gray">
+              <div className="slideRight font-bona">
+                <h1 className="text-2xl text-center mb-2 border-b-2 border-b-gray">
                   CREATE YOUR LOGIN
                 </h1>
 
@@ -260,7 +258,7 @@ export const SignUp: React.FC = () => {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between mt-14">
+          <div className="flex justify-between mt-14 font-bona">
             {currentStep > 1 && (
               <button
                 type="button"

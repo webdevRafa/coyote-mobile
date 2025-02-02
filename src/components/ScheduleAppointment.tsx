@@ -1,50 +1,92 @@
-import { fetchAvailableSlots } from "../services/availableSlots";
 import { useState, useEffect } from "react";
-import { doc, updateDoc, addDoc, collection } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  addDoc,
+  collection,
+  getDocs,
+} from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { Timestamp } from "firebase/firestore";
-import { getNextSundays } from "../services/getNextSundays";
+
+// Fetch only available slots from Firestore
+const fetchAllAvailableSlots = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "availableSlots"));
+    const availableSlots: { date: string; slots: Record<string, string> }[] =
+      [];
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data.slots && Object.values(data.slots).includes("available")) {
+        availableSlots.push({ date: doc.id, slots: data.slots });
+      }
+    });
+
+    return availableSlots;
+  } catch (error) {
+    console.error("Error fetching available slots:", error);
+    return [];
+  }
+};
 
 export const ScheduleAppointment: React.FC = () => {
+  const [availableDates, setAvailableDates] = useState<
+    { date: string; slots: Record<string, string> }[]
+  >([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [timeSlots, setTimeSlots] = useState<{ [key: string]: string } | null>(
+  const [timeSlots, setTimeSlots] = useState<Record<string, string> | null>(
     null
   );
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-  const [reason, setReason] = useState<string>(""); // Added state for reason
+  const [reason, setReason] = useState<string>("");
   const [painLevel, setPainLevel] = useState<string>("0");
-  const [screen, setScreen] = useState(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [screen, setScreen] = useState<boolean>(false);
 
-  const handleDateSelection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedDate(e.target.value);
+  // Load available slots from Firestore
+  useEffect(() => {
+    const loadAvailableSlots = async () => {
+      const slots = await fetchAllAvailableSlots();
+      setAvailableDates(slots);
+    };
+    loadAvailableSlots();
+  }, []);
+
+  // **Fix: Correct Date Formatting to Stop Shifting**
+  const formatDate = (dateString: string) => {
+    // Extract year, month, and day from Firestore's "YYYY-MM-DD"
+    const [year, month, day] = dateString.split("-").map(Number);
+
+    // Create a Date object in strict UTC format
+    const dateObject = new Date(Date.UTC(year, month - 1, day));
+
+    // **Force the correct day of the week by manually extracting it**
+    const weekday = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ][dateObject.getUTCDay()];
+
+    return `${weekday}, ${month}/${day}/${year}`;
   };
 
-  useEffect(() => {
-    const fetchSlots = async () => {
-      if (!selectedDate) return;
+  // Handle selecting a date
+  const handleDateSelection = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const date = e.target.value;
+    setSelectedDate(date);
+    const selectedSlotData = availableDates.find((d) => d.date === date);
+    setTimeSlots(selectedSlotData ? selectedSlotData.slots : null);
+  };
 
-      setIsLoading(true);
-      const slots = await fetchAvailableSlots(selectedDate);
-      if (slots) {
-        setTimeSlots(slots);
-      } else {
-        setTimeSlots({});
-      }
-      setIsLoading(false);
-    };
-
-    fetchSlots();
-  }, [selectedDate]);
-
+  // Booking an appointment (Preserving All Booking Logic)
   const handleBooking = async () => {
-    if (!selectedSlot) {
-      alert("Please select a time slot.");
-      return;
-    }
-
-    if (!selectedDate) {
-      alert("Please select a date.");
+    if (!selectedSlot || !selectedDate) {
+      alert("Please select a date and time slot.");
       return;
     }
 
@@ -54,197 +96,177 @@ export const ScheduleAppointment: React.FC = () => {
     }
 
     const userId = auth.currentUser?.uid;
-
     if (!userId) {
       alert("You must be logged in to book an appointment.");
       return;
     }
 
-    // Convert painlevel to a number
+    // Convert pain level to number and check screening requirement
     const painLevelNumber = parseInt(painLevel, 10);
-    // Prevent booking if pain level is 8 or higher
     if (painLevelNumber >= 8) {
       setScreen(true);
-
       return;
     }
+
     const docRef = doc(db, "availableSlots", selectedDate);
-    const updatedSlots = { ...timeSlots, [selectedSlot]: "booked" };
 
     try {
-      // Update slot availability in Firestore
+      // Fetch the latest version of the document to avoid overwriting existing slots
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        alert("Error: Selected date does not exist.");
+        return;
+      }
+
+      const existingSlots = docSnap.data().slots || {}; // Preserve existing slots
+
+      // Update only the selected slot while keeping other slots unchanged
+      const updatedSlots = { ...existingSlots, [selectedSlot]: "booked" };
+
+      // Update Firestore with the modified slot data
       await updateDoc(docRef, { slots: updatedSlots });
 
-      // Add booking details to the bookings collection
+      // Add booking details to the "bookings" collection
       const bookingsRef = collection(db, "bookings");
-      const bookingData = {
+      await addDoc(bookingsRef, {
         userId,
-        date: selectedDate, // Adding the date as a string matching availableSlots ID
+        date: selectedDate,
         slot: selectedSlot,
         serviceId: "massage_therapy",
         reasonForVisit: reason.trim(),
-        painLevel: painLevel, // Add selected Pain Level
+        painLevel: painLevel,
         status: "confirmed",
         createdAt: Timestamp.now(),
-      };
+      });
 
-      await addDoc(bookingsRef, bookingData);
-
-      // Success notification and UI update
       alert("Appointment successfully booked!");
-      setTimeSlots(updatedSlots);
+      setTimeSlots(updatedSlots); // Update local state
       setSelectedSlot(null);
-      setReason(""); // Clear the reason field
+      setReason("");
     } catch (error) {
       console.error("Error during booking:", error);
       alert("Error booking the appointment. Please try again.");
     }
   };
 
-  const nextSundays = getNextSundays(8);
-
   return (
     <div className="p-6 bg-gray shadow-md rounded relative">
+      {screen && (
+        <div className="absolute top-0 w-full h-full left-0 bg-dark-gray flex items-center justify-center">
+          <div>
+            <h1 className="text-white text-lg font-bona">
+              Your pain level is too high. Please get a medical screening prior
+              to booking.
+            </h1>
+            <button
+              onClick={() => setScreen(false)}
+              className="bg-sky py-1 px-4 mx-auto block mt-3"
+            >
+              return
+            </button>
+          </div>
+        </div>
+      )}
       <h2 className="text-md md:text-lg text-white bg-dark-gray text-center py-5 my-5">
-        schedule an appointment
+        Schedule an Appointment
       </h2>
 
-      {/* Dropdown for Sundays */}
+      {/* Dropdown for Available Dates */}
       <div className="mb-4">
-        <h3 className="font-semibold mb-2 text-white">
-          Select a Date (Next 8 Sundays):
-        </h3>
+        <h3 className="font-semibold mb-2 text-white">Select a Date:</h3>
         <select
           className="border p-2 rounded w-full"
           value={selectedDate || ""}
           onChange={handleDateSelection}
         >
           <option value="" disabled>
-            Select a Sunday
+            Select a Date
           </option>
-          {nextSundays.map((date) => (
-            <option key={date} value={date}>
-              {new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "short",
-                day: "numeric",
-              })}
-            </option>
-          ))}
+          {availableDates
+            .filter((dateObj) =>
+              Object.values(dateObj.slots).includes("available")
+            ) // 🚀 Strictly Filter Only Dates That Exist
+            .map((dateObj) => (
+              <option key={dateObj.date} value={dateObj.date}>
+                {formatDate(dateObj.date)}
+              </option>
+            ))}
         </select>
       </div>
 
-      {/* Input for Reason for Visit */}
-      <div className="mb-4">
-        <h3 className="text-white mb-2">Reason for Visit:</h3>
-        <textarea
-          className="border p-2 rounded w-full"
-          value={reason}
-          onChange={(e) => setReason(e.target.value)}
-          placeholder="Please describe the reason for our visit"
-        />
-      </div>
-      {/* Input for Pain level */}
-      <div>
-        <div className="flex items-end gap-5 justify-start">
-          <div className="h-full">
-            <h3 className="text-white">Please rate your pain level:</h3>
-            <p className="text-green text-sm">Select 0 if no pain</p>
-            <p className="text-sky text-sm">1 = lowest; 10= highest.</p>
-          </div>
-          <select
-            className="bg-dark-gray py-2 px-8 text-white"
-            name="painLevel"
-            id="painLevel"
-            value={painLevel}
-            onChange={(e) => setPainLevel(e.target.value)} // Set state when selection changes
-          >
-            {[...Array(11).keys()].map((num) => (
-              <option key={num} value={num.toString()}>
-                {num}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-      {/* Available Time Slots */}
-      <div className="mb-4">
-        <h3 className="text-md md:text-lg  my-5 bg-dark-gray text-center py-5 text-white">
-          Current Availability
-        </h3>
-        {isLoading ? (
-          <p>Loading slots...</p>
-        ) : timeSlots ? (
+      {/* Display Available Time Slots */}
+      {selectedDate && timeSlots && (
+        <div className="mb-4">
+          <h3 className="text-md md:text-lg my-5 bg-dark-gray text-center py-5 text-white">
+            Available Time Slots
+          </h3>
           <ul className="grid grid-cols-2 gap-2 text-white">
             {Object.entries(timeSlots)
+              .filter(([_, status]) => status === "available") // Only show available slots
               .sort(([timeA], [timeB]) => {
-                const parseTime = (time: string) => {
-                  const [hours, minutes] = time
-                    .replace(/(am|pm)/i, "")
-                    .split(":")
-                    .map(Number);
-                  return time.includes("pm") && hours !== 12
-                    ? (hours + 12) * 60 + minutes
-                    : hours * 60 + minutes;
+                // Convert time format "9:00am" into a comparable 24-hour format
+                const convertTo24Hour = (time: string) => {
+                  const [hourMinute, period] = time.split(/(am|pm)/);
+                  let [hours, minutes] = hourMinute.split(":").map(Number);
+                  if (period === "pm" && hours !== 12) hours += 12;
+                  if (period === "am" && hours === 12) hours = 0;
+                  return hours * 60 + minutes; // Convert to minutes for sorting
                 };
-                return parseTime(timeA) - parseTime(timeB);
+                return convertTo24Hour(timeA) - convertTo24Hour(timeB);
               })
-              .map(([time, status]) => (
+              .map(([time]) => (
                 <li key={time}>
                   <button
-                    disabled={status === "booked"}
                     onClick={() => setSelectedSlot(time)}
-                    className={`p-2 rounded w-full  ${
-                      status === "booked"
-                        ? "bg-gray text-red cursor-not-allowed"
-                        : selectedSlot === time
+                    className={`p-2 rounded w-full ${
+                      selectedSlot === time
                         ? "bg-blue text-white"
-                        : "bg-gray-200 hover:bg-gray-300"
-                    } ${status === "available" && " hover:bg-blue"}`}
+                        : "bg-gray hover:bg-gray-300"
+                    }`}
                   >
                     {time}
                   </button>
                 </li>
               ))}
           </ul>
-        ) : (
-          <div className="flex items-center justify-center py-10">
-            <p className="text-shade">No available slots for this date.</p>
-          </div>
-        )}
-      </div>
-
-      {/* Book Appointment Button */}
-      <button
-        onClick={handleBooking}
-        disabled={!selectedSlot || !reason.trim()}
-        className={`w-full bg-blue text-white p-3 rounded ${
-          selectedSlot
-            ? "bg-blue-500 text-white hover:bg-blue-600"
-            : "bg-gray-300 text-gray-600 cursor-not-allowed"
-        }`}
-      >
-        Book Appointment
-      </button>
-      {screen === true && (
-        <div className="absolute top-0 left-0 w-full h-full bg-dark-gray flex items-center justify-center">
-          <div>
-            <h1 className="text-white text-center text-2xl">
-              Your pain level of{" "}
-              <span className="text-red font-bold">{painLevel}</span> is too
-              high
-            </h1>
-            <p className="text-shade text-md">
-              Please consider getting a medical screening first
-            </p>
-            <button
-              onClick={() => setScreen(false)}
-              className="mx-auto block mt-5 py-1 px-4 shadow-md bg-dark-blue"
-            >
-              return
-            </button>
-          </div>
         </div>
+      )}
+
+      {/* Booking Section */}
+      {selectedSlot && (
+        <>
+          <div className="mb-4">
+            <h3 className="text-white">Reason for Visit:</h3>
+            <textarea
+              className="border p-2 rounded w-full"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              placeholder="Briefly describe your reason for the visit"
+            />
+          </div>
+
+          <div className="mb-4">
+            <h3 className="text-white">Pain Level (0-10):</h3>
+            <select
+              className="border p-2 rounded w-full"
+              value={painLevel}
+              onChange={(e) => setPainLevel(e.target.value)}
+            >
+              {[...Array(11).keys()].map((num) => (
+                <option key={num} value={num.toString()}>
+                  {num}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <button
+            onClick={handleBooking}
+            className="bg-blue text-white p-3 rounded w-full"
+          >
+            Book Appointment
+          </button>
+        </>
       )}
     </div>
   );

@@ -67,7 +67,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
     <div className="relative z-40 mt-10 rounded flex gap-2 justify-between max-w-[1200px] mx-auto items-start uppercase font-mono bg-dark-gray">
       <div className="shadow-md relative fadeIn">
         <div className="p-5">
-          <h2 className="text-2xl text-white pb-1 bg-dark-gray mt-1 mb-3 rounded-t-lg text-left">
+          <h2 className="text-2xl text-white pb-1 bg-dark-gray mt-1 mb-3 rounded-t-lg text-left font-bona">
             Welcome,&nbsp;
             <span className="font-bold text-sky">
               {userData?.firstName || user?.email}
@@ -95,20 +95,20 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
         </div>
         <button
           onClick={() => setUpdating(true)}
-          className="bg-gradient-to-t from-dark-gray to-gray shadow-md text-white px-2 py-1 border-r-2 border-r-gray"
+          className="font-bona bg-gradient-to-t from-dark-gray to-gray shadow-md text-white px-2 py-1 border-r-2 border-r-gray"
         >
           update info
         </button>
         {updating && (
           <div className="absolute z-50 top-0 left-0 w-full h-full bg-gray py-4 px-2 mt-[-10px] slideDown">
             <div className="w-full flex justify-between items-center">
-              <h2 className="text-sky font-bold text-lg">Update Your Info</h2>
+              <h2 className="text-sky text-lg font-bona">Update Your Info</h2>
               <FaWindowClose
                 onClick={() => setUpdating(false)}
                 className="size-7 text-white cursor-pointer"
               />
             </div>
-            <form className="mt-4 bg-gray py-2 px-4 shadow-md">
+            <form className="mt-4 bg-gray py-2 px-4 shadow-md font-bona">
               <div className="flex gap-5 space-around justify-between">
                 <label className="text-white">
                   First Name:
@@ -185,7 +185,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
               <button
                 type="button"
                 onClick={handleUpdate}
-                className="bg-sky px-4 py-2 mb-10 rounded text-white"
+                className="bg-sky px-4 py-2 my-10 rounded text-white"
               >
                 Save
               </button>
@@ -197,9 +197,9 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
       <div>
         <button
           onClick={handleLogout}
-          className=" p-2  text-white bg-gradient-to-b from-red to-dark-red"
+          className=" p-2 text-white bg-gradient-to-b from-red to-dark-red font-bona"
         >
-          Logout
+          Log out
         </button>
       </div>
     </div>

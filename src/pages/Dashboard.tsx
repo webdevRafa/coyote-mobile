@@ -17,6 +17,7 @@ import { UserCard } from "../components/UserCard";
 import { AppointmentList } from "../components/AppointmentList";
 import logo from "../assets/logo.png";
 import { SignIn } from "../components/SignIn";
+import { ManageAvailability } from "../components/ManageAvailability";
 
 export const Dashboard: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -301,31 +302,31 @@ export const Dashboard: React.FC = () => {
   }
   if (userData?.role === "doctor") {
     return (
-      <div className="py-[100px] font-mono">
-        <h1 className="text-white text-center mb-5 text-2xl">
-          All Booked Appointments
+      <div className="py-[100px]">
+        <h1 className="text-white text-center mb-5 text-2xl font-bona">
+          MANAGE APPOINTMENTS
         </h1>
         {/* Toggle Buttons */}
         <div className="flex justify-center gap-4 mb-5">
           <button
             onClick={() => setActiveTab("pending")}
-            className={`px-4 py-2 rounded-md ${
+            className={`px-4 py-2 font-bona rounded-md ${
               activeTab === "pending"
                 ? "bg-sky text-white"
                 : "text-white bg-gray"
             }`}
           >
-            Pending Bookings
+            Pending
           </button>
           <button
             onClick={() => setActiveTab("completed")}
-            className={`px-4 py-2 rounded-md ${
+            className={`px-4 py-2 font-bona rounded-md ${
               activeTab === "completed"
                 ? "bg-sky text-white"
                 : "bg-gray text-white"
             }`}
           >
-            Completed Bookings
+            Completed
           </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-10">
@@ -336,7 +337,7 @@ export const Dashboard: React.FC = () => {
                 className="cursor-pointer rounded-md  bg-gray p-3 shadow-md border-2 border-dark-gray hover:border-sky"
               >
                 <h1 className="text-left text-white py-2 px-1 mb-2">
-                  <span className="text-sky">Reason for Visit:</span>{" "}
+                  <span className="text-sky font-bona">Reason for Visit:</span>{" "}
                   <span className="bg-dark-gray p-2 rounded-md">
                     {doc.reasonForVisit}
                   </span>
@@ -361,14 +362,14 @@ export const Dashboard: React.FC = () => {
                 </div>
                 {/* Chriropractor Notes Input */}
                 <textarea
-                  className="w-full mt-2 p-2 rounded bg-dark-gray text-white"
+                  className="w-full mt-2 p-2 rounded bg-dark-gray font-bona text-white"
                   placeholder="Add chiropractor notes..."
                   value={notes[doc.id] || ""}
                   onChange={(e) => handleNotesChange(doc.id, e.target.value)}
                 ></textarea>
                 <button
                   onClick={() => markAppointmentComplete(doc.id, notes[doc.id])}
-                  className="bg-blue hover:bg-sky transition ease-in-out duration-300 rounded-sm mt-5 px-2 py-1 shadow-md"
+                  className="text-sm bg-blue font-bona hover:bg-sky transition ease-in-out duration-300 rounded-sm mt-5 p-2 shadow-md"
                 >
                   MARK COMPLETE
                 </button>
@@ -405,6 +406,7 @@ export const Dashboard: React.FC = () => {
               </div>
             ))}
         </div>
+        <ManageAvailability />
       </div>
     );
   }
