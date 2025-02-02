@@ -19,7 +19,12 @@ export default {
       'sky': '#097bd5',
       'shade': '#f6f6f6'
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        roboto: ['Roboto', 'sans-serif'], // Variable font with all weights
+        bona: ['BonaNovaSC', 'serif'], // Bona Nova SC for a serif style
+      },
+    },
   },
   plugins: [],
 }

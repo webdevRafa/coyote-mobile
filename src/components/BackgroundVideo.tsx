@@ -28,7 +28,7 @@ export const BackgroundVideo: React.FC = () => {
       muted
       loop
       playsInline
-      className="opacity-10 blur-sm"
+      className="opacity-10 translate-y-[-50%] md:translate-y-0"
       style={{
         position: "relative",
         top: 0,

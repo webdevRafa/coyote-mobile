@@ -10,7 +10,7 @@ const services = [
       "To restore joint mobility, relieve pain, and improve functionality",
     content: (
       <>
-        <ul className="italic p-5 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
+        <ul className="font-bona p-5 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
           <li className="border-b-2 border-b-shade">Back pain</li>
           <li className="border-b-2 border-b-shade">Neck pain or stiffness</li>
           <li className="border-b-2 border-b-shade">
@@ -32,7 +32,7 @@ const services = [
       "To relax tight muscles, reduce scar tissue, and improve blood flow.",
     content: (
       <>
-        <ul className="italic p-5 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
+        <ul className="font-bona p-5 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
           <li className="border-b-2 border-b-shade">
             Muscle tension or spasms
           </li>
@@ -56,7 +56,7 @@ const services = [
       "To strengthen weak muscles, improve posture, and prevent injuries.",
     content: (
       <>
-        <ul className="italic p-5 text-dark-gray bg-gradient-to-b from-white to-off-white max-w-[400px] mx-auto text-left">
+        <ul className="font-bona p-5 text-dark-gray bg-gradient-to-b from-white to-off-white max-w-[400px] mx-auto text-left">
           <li className="border-b-2 border-b-shade">
             Muscle imbalances or poor posture
           </li>
@@ -94,13 +94,15 @@ export const Services: React.FC = () => {
     <div className="text-white pt-28 px-10 relative py-20 w-full flex flex-col md:flex-row items-center justify-center">
       <div className="md:translate-x-[25%] translate-y-[10%] md:translate-y-0">
         {/* Current Service Display */}
-        <div className="bg-gradient-to-t from-gray to-dark-gray py-14 px-10 shadow-md w-full max-w-2xl text-center">
+        <div className="bg-gradient-to-t from-gray to-dark-gray py-2 md:py-14 px-10 shadow-md w-full max-w-2xl text-center">
           <div className="slideRight">
-            <h1 className="text-3xl mb-5 font-bold text-sky">
+            <h1 className="text-3xl mb-2 md:mb-5 font-bona font-bold text-sky">
               {currentService.name}
             </h1>
-            <p className="text-lg mb-2">{currentService.purpose}</p>
-            <p className="font-bold mb-2 mt-5">Recommended for: </p>
+            <p className="font-roboto text-md mb-2">{currentService.purpose}</p>
+            <p className="mb-2 mt-10 font-roboto text-left">
+              Recommended for:{" "}
+            </p>
             {currentService.content}
           </div>
         </div>

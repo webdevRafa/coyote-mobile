@@ -4,7 +4,7 @@ import moi from "../assets/moi-standing.png";
 export const HeroSection: React.FC = () => {
   return (
     <>
-      <div className="mx-auto w-full overflow-hidden max-w-[800px] mt-28 pl-3 sticky top-20 z-20">
+      <div className="mx-auto w-full overflow-hidden  max-w-[800px] mt-28 pl-3 sticky top-20 z-20">
         <div className="flex md:flex-row items-center justify-center">
           <div className="w-full">
             <img
