@@ -23,6 +23,9 @@ export const Dashboard: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<any | null>(null);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [manager, setManager] = useState<"appointments" | "availability">(
+    "appointments"
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"pending" | "completed">(
@@ -303,110 +306,153 @@ export const Dashboard: React.FC = () => {
   if (userData?.role === "doctor") {
     return (
       <div className="py-[100px]">
-        <h1 className="text-white text-center mb-5 text-2xl font-bona">
-          MANAGE APPOINTMENTS
-        </h1>
-        {/* Toggle Buttons */}
-        <div className="flex justify-center gap-4 mb-5">
+        {/*  TOGGLE BETWEEN APPOINTMENTS AND AVAILABILITY */}
+        <div className="w-full text-white py-2  max-w-[300px] mx-auto flex items-center justify-center text-center gap-3 mb-20">
           <button
-            onClick={() => setActiveTab("pending")}
-            className={`px-4 py-2 font-bona rounded-md ${
-              activeTab === "pending"
-                ? "bg-sky text-white"
-                : "text-white bg-gray"
+            className={`py-2 px-4 font-bona rounded-md ${
+              manager === "appointments" ? "bg-sky" : "bg-gray"
             }`}
+            onClick={() => setManager("appointments")}
           >
-            Pending
+            Appointments
           </button>
           <button
-            onClick={() => setActiveTab("completed")}
-            className={`px-4 py-2 font-bona rounded-md ${
-              activeTab === "completed"
-                ? "bg-sky text-white"
-                : "bg-gray text-white"
+            className={`py-2 px-4 font-bona rounded-md ${
+              manager === "availability" ? "bg-sky" : "bg-gray"
             }`}
+            onClick={() => setManager("availability")}
           >
-            Completed
+            Availability
           </button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-10">
-          {activeTab === "pending" &&
-            appointments.map((doc) => (
-              <div
-                key={doc.id}
-                className="cursor-pointer rounded-md  bg-gray p-3 shadow-md border-2 border-dark-gray hover:border-sky"
-              >
-                <h1 className="text-left text-white py-2 px-1 mb-2">
-                  <span className="text-sky font-bona">Reason for Visit:</span>{" "}
-                  <span className="bg-dark-gray p-2 rounded-md">
-                    {doc.reasonForVisit}
-                  </span>
-                </h1>
-                {/* Appointment Info */}
-                <div className="bg-shade-gray p-4">
-                  <p className="text-white">
-                    User: {doc.firstName} {doc.lastName}
-                  </p>
-                  <p className="text-white text-left">
-                    Date: {formatDateTime(doc.date) || "Unknown Date"}
-                  </p>
-                  <p className="text-white text-left">
-                    Time: {doc.slot || "Unknown Slot"}
-                  </p>{" "}
-                  <p className="text-white text-left">
-                    Pain Level: {doc.painLevel}
-                  </p>
-                  <p className="text-white text-left">
-                    Reason for Visit: {doc.reasonForVisit}
-                  </p>
-                </div>
-                {/* Chriropractor Notes Input */}
-                <textarea
-                  className="w-full mt-2 p-2 rounded bg-dark-gray font-bona text-white"
-                  placeholder="Add chiropractor notes..."
-                  value={notes[doc.id] || ""}
-                  onChange={(e) => handleNotesChange(doc.id, e.target.value)}
-                ></textarea>
+        {/* CONDITIONALLY SHOW APPOINTMENTS */}
+        {manager === "appointments" && (
+          <>
+            {/* MANAGE APPOINTMENTS */}
+            <div>
+              <h1 className="text-white text-center mb-5 text-2xl font-roboto">
+                MANAGE APPOINTMENTS
+              </h1>
+              {/* Toggle Buttons */}
+              <div className="flex justify-center gap-2 mb-5">
                 <button
-                  onClick={() => markAppointmentComplete(doc.id, notes[doc.id])}
-                  className="text-sm bg-blue font-bona hover:bg-sky transition ease-in-out duration-300 rounded-sm mt-5 p-2 shadow-md"
+                  onClick={() => setActiveTab("pending")}
+                  className={`px-4 py-2 font-bona rounded-md ${
+                    activeTab === "pending"
+                      ? "bg-sky text-white"
+                      : "text-white bg-gray"
+                  }`}
                 >
-                  MARK COMPLETE
+                  Pending
+                </button>
+                <button
+                  onClick={() => setActiveTab("completed")}
+                  className={`px-4 py-2 font-bona rounded-md ${
+                    activeTab === "completed"
+                      ? "bg-sky text-white"
+                      : "bg-gray text-white"
+                  }`}
+                >
+                  Completed
                 </button>
               </div>
-            ))}
-        </div>
-        <div className="mx-auto max-w-[1200px]">
-          {activeTab === "completed" &&
-            completedAppointments.map((doc) => (
-              <div
-                key={doc.id}
-                className="cursor-pointer rounded-md mb-5 bg-gray p-3 shadow-md border-2 border-dark-gray hover:border-green-500"
-              >
-                <div className="bg-shade-gray p-4">
-                  <p className="text-white">
-                    User: {doc.firstName} {doc.lastName}
-                  </p>
-                  <p className="text-white text-left">
-                    Date: {formatDateTime(doc.date) || "Unknown Date"}
-                  </p>
-                  <p className="text-white text-left">
-                    Time: {doc.slot || "Unknown Slot"}
-                  </p>
-                  <p className="text-white text-left">
-                    Reason: {doc.reasonForVisit || "Unknown Reason"}
-                  </p>
-                  {/* Display Chiropractor Notes */}
-                  <p className="text-white text-left mt-3 bg-dark-gray p-5">
-                    <span className="text-green-400">Chiropractor Notes:</span>{" "}
-                    {doc.notes || "No notes provided"}
-                  </p>
-                </div>
-                <p className="text-center text-white mt-4">✅ Completed</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-10">
+                {activeTab === "pending" &&
+                  appointments.map((doc) => (
+                    <div
+                      key={doc.id}
+                      className="cursor-pointer rounded-md  bg-gray p-3 shadow-md border-2 border-dark-gray hover:border-sky"
+                    >
+                      <h1 className="text-left text-white py-2 px-1 mb-2">
+                        <span className="text-sky font-bona">
+                          Reason for Visit:
+                        </span>{" "}
+                        <span className="bg-dark-gray p-2 rounded-md">
+                          {doc.reasonForVisit}
+                        </span>
+                      </h1>
+                      {/* Appointment Info */}
+                      <div className="bg-shade-gray p-4">
+                        <p className="text-white">
+                          User: {doc.firstName} {doc.lastName}
+                        </p>
+                        <p className="text-white text-left">
+                          Date: {formatDateTime(doc.date) || "Unknown Date"}
+                        </p>
+                        <p className="text-white text-left">
+                          Time: {doc.slot || "Unknown Slot"}
+                        </p>{" "}
+                        <p className="text-white text-left">
+                          Pain Level: {doc.painLevel}
+                        </p>
+                        <p className="text-white text-left">
+                          Reason for Visit: {doc.reasonForVisit}
+                        </p>
+                      </div>
+                      {/* Chriropractor Notes Input */}
+                      <textarea
+                        className="w-full mt-2 p-2 rounded bg-dark-gray font-bona text-white"
+                        placeholder="Add chiropractor notes..."
+                        value={notes[doc.id] || ""}
+                        onChange={(e) =>
+                          handleNotesChange(doc.id, e.target.value)
+                        }
+                      ></textarea>
+                      <button
+                        onClick={() =>
+                          markAppointmentComplete(doc.id, notes[doc.id])
+                        }
+                        className="text-sm bg-blue font-bona hover:bg-sky transition ease-in-out duration-300 rounded-sm mt-5 p-2 shadow-md"
+                      >
+                        MARK COMPLETE
+                      </button>
+                    </div>
+                  ))}
               </div>
-            ))}
-        </div>
-        <ManageAvailability />
+              <div className="mx-auto max-w-[1200px]">
+                {activeTab === "completed" &&
+                  completedAppointments.map((doc) => (
+                    <div
+                      key={doc.id}
+                      className="cursor-pointer rounded-md mb-5 bg-gray p-3 shadow-md border-2 border-dark-gray hover:border-green-500"
+                    >
+                      <div className="bg-shade-gray p-4">
+                        <p className="text-white">
+                          User: {doc.firstName} {doc.lastName}
+                        </p>
+                        <p className="text-white text-left">
+                          Date: {formatDateTime(doc.date) || "Unknown Date"}
+                        </p>
+                        <p className="text-white text-left">
+                          Time: {doc.slot || "Unknown Slot"}
+                        </p>
+                        <p className="text-white text-left">
+                          Reason: {doc.reasonForVisit || "Unknown Reason"}
+                        </p>
+                        {/* Display Chiropractor Notes */}
+                        <p className="text-white text-left mt-3 bg-dark-gray p-5">
+                          <span className="text-green-400">
+                            Chiropractor Notes:
+                          </span>{" "}
+                          {doc.notes || "No notes provided"}
+                        </p>
+                      </div>
+                      <p className="text-center text-white mt-4">
+                        ✅ Completed
+                      </p>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </>
+        )}
+        {/* CONDITIONALLY SHOW AVAILABILITY */}
+        {manager === "availability" && (
+          <>
+            {/* MANAGE AVAILABILITY */}
+            <ManageAvailability />
+          </>
+        )}
       </div>
     );
   }

@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
         <a href="https://www.facebook.com/moises.c.hernandez.1">
           <ImFacebook2 className="size-7 mr-1 text-sky hover:text-white" />
         </a>
-        <a href="https://www.instagram.com/dr.moiseshdz">
+        <a href="https://www.instagram.com/rgvchiro">
           <TiSocialInstagram className="size-10 text-sky hover:text-white" />
         </a>
       </div>

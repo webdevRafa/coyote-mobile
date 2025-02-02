@@ -6,7 +6,7 @@ export const BackgroundVideo: React.FC = () => {
   useEffect(() => {
     const fetchVideo = async () => {
       const storage = getStorage();
-      const videoRef = ref(storage, "Demo.mp4");
+      const videoRef = ref(storage, "scrubs.mp4");
       try {
         const url = await getDownloadURL(videoRef);
         setVideoUrl(url);
@@ -28,7 +28,7 @@ export const BackgroundVideo: React.FC = () => {
       muted
       loop
       playsInline
-      className="opacity-10 translate-y-[-50%] md:translate-y-0"
+      className="opacity-20 translate-y-[-50%] md:translate-y-0 blur-sm"
       style={{
         position: "relative",
         top: 0,

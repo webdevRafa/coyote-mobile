@@ -42,7 +42,7 @@ export const About: React.FC = () => {
             improve your overall mobility, our services are designed to help you
             regain control of your health and feel at ease.
           </p>
-          <p className="text-dark-gray bg-gradient-to-b from-white to-off-white text-xl font-light rounded-sm md:text-3xl mt-5 max-w-[800px] mx-auto p-5">
+          <p className="text-dark-gray bg-gradient-to-b from-white to-off-white text-xl font-roboto font-light rounded-sm md:text-3xl mt-5 max-w-[800px] mx-auto p-5">
             <strong>Ready to take the first step toward better health?</strong>{" "}
             Create an account today to schedule a free consultation or request a
             personalized visit with Dr. Hernandez.

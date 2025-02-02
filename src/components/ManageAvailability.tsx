@@ -80,13 +80,17 @@ export const ManageAvailability: React.FC = () => {
   };
 
   return (
-    <div className="p-6 bg-gray shadow-md rounded mx-auto max-w-[1400px] mt-20">
-      <h2 className="text-lg text-white mb-4">Manage Availability</h2>
+    <div className="p-6 bg-gray shadow-md rounded mx-auto max-w-[800px] mt-20">
+      <h2 className="text-sky mb-10 text-center text-3xl font-bona">
+        ADD AVAILABILITY
+      </h2>
 
       {/* Select Day of the Week */}
-      <label className="block text-white mb-2">Select Day of the Week:</label>
+      <label className="text-xl block text-white mb-2 uppercase text-center translate-x-[-120px]">
+        OPEN
+      </label>
       <select
-        className="w-full p-2 rounded bg-dark-gray text-white"
+        className="w-full max-w-[300px] mx-auto block p-2 rounded bg-dark-gray text-white"
         value={selectedDay ?? ""}
         onChange={handleDayChange}
       >
@@ -105,9 +109,11 @@ export const ManageAvailability: React.FC = () => {
       {/* Select Date Dropdown (only appears if a day is selected) */}
       {selectedDay !== null && availableDates.length > 0 && (
         <>
-          <label className="block text-white mt-4">Select Date:</label>
+          <label className="block text-white text-xl mt-4 mb-2 uppercase text-center translate-x-[-120px]">
+            Date:
+          </label>
           <select
-            className="w-full p-2 rounded bg-dark-gray text-white"
+            className="w-full max-w-[300px] mx-auto block p-2 rounded bg-dark-gray text-white"
             value={selectedDate}
             onChange={handleDateChange}
           >
@@ -132,8 +138,10 @@ export const ManageAvailability: React.FC = () => {
       {/* Select Time Slots (only appears if a date is selected) */}
       {selectedDate && (
         <>
-          <h3 className="text-white mt-4">Select Available Time Slots:</h3>
-          <div className="grid grid-cols-2 gap-2 mt-2">
+          <h3 className="mt-20 text-3xl mb-10 text-center font-bona uppercase text-sky">
+            CHOOSE TIMES
+          </h3>
+          <div className="grid grid-cols-2 gap-2 mt-2 mb-10">
             {timeOptions.map((time) => (
               <button
                 key={time}
