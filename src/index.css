@@ -25,7 +25,19 @@
   font-style: normal;
   font-display: swap;
 }
-
+@font-face {
+  font-family: 'Poppins';
+  src: url('../public/fonts/Poppins-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Playfair';
+  src: url('../public/fonts/Playfair-Variable.ttf') format('truetype');
+  font-style: normal;
+  font-display: swap;
+}
 body {
   background: #202126;
   background: #19191d;

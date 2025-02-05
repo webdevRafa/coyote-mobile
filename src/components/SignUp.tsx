@@ -105,14 +105,14 @@ export const SignUp: React.FC = () => {
           {/* Step 1 */}
           {currentStep === 1 && (
             <>
-              <h1 className="text-2xl text-center mb-2 font-bona">
+              <h1 className="text-2xl text-center mb-2 font-playfair">
                 GET STARTED
               </h1>
-              <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm font-bona font-bold text-center border-b-gray border-b-2 pb-2">
+              <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm font-poppins text-center border-b-gray border-b-2 pb-2">
                 create an account to take your next step into better health
               </p>
 
-              <div className="flex gap-2 space-around justify-between max-w-[700px] mx-auto font-bona">
+              <div className="flex gap-2 space-around justify-between max-w-[700px] mx-auto font-playfair">
                 <div className="w-full">
                   <label>First Name</label>
                   <input
@@ -134,7 +134,7 @@ export const SignUp: React.FC = () => {
                   />
                 </div>
               </div>
-              <div className="font-bona">
+              <div className="font-playfair">
                 <label>Phone Number</label>
                 <input
                   type="text"
@@ -143,7 +143,7 @@ export const SignUp: React.FC = () => {
                   className="w-full p-2 border rounded mb-4 text-dark-gray"
                 />
               </div>
-              <div className="font-bona">
+              <div className="font-playfair">
                 <label>Date of Birth</label>
                 <input
                   type="date"
@@ -158,14 +158,14 @@ export const SignUp: React.FC = () => {
           {/* Step 2 */}
           {currentStep === 2 && (
             <>
-              <div className="slideRight font-bona">
-                <h1 className="text-2xl text-center mb-2 font-mono">ADDRESS</h1>
-                <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm  font-bold text-center border-b-gray border-b-2 pb-2">
+              <div className="slideRight font-playfair">
+                <h1 className="text-2xl text-center mb-2">ADDRESS</h1>
+                <p className="font-poppins mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm text-center border-b-gray border-b-2 pb-2">
                   this is required for home visits
                 </p>
 
                 <div>
-                  <label>Address</label>
+                  <label>Address:</label>
                   <input
                     type="text"
                     value={street}
@@ -174,7 +174,7 @@ export const SignUp: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label>City</label>
+                  <label>City:</label>
                   <input
                     type="text"
                     value={city}
@@ -184,7 +184,7 @@ export const SignUp: React.FC = () => {
                 </div>
 
                 <div>
-                  <label>Zip Code</label>
+                  <label>Zip Code:</label>
                   <input
                     type="text"
                     value={zipCode}
@@ -198,9 +198,9 @@ export const SignUp: React.FC = () => {
           {/* Step 3 */}
           {currentStep === 3 && (
             <>
-              <div className="slideRight font-bona">
+              <div className="slideRight font-playfair">
                 <h1 className="text-2xl text-center mb-2">ADDITIONAL INFO</h1>
-                <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm  font-bold text-center border-b-gray border-b-2 pb-2">
+                <p className="font-poppins mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm text-center border-b-gray border-b-2 pb-2">
                   please add anything you would like to share
                 </p>
 
@@ -218,15 +218,16 @@ export const SignUp: React.FC = () => {
           {/* Step 4 */}
           {currentStep === 4 && (
             <>
-              <div className="slideRight font-bona">
+              <div className="slideRight font-playfair">
                 <h1 className="text-2xl text-center mb-2 border-b-2 border-b-gray">
                   CREATE YOUR LOGIN
                 </h1>
 
                 <div>
-                  <label>Email</label>
+                  <label>Email:</label>
                   <input
                     type="email"
+                    placeholder="enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full p-2 border rounded mb-4 text-dark-gray"
@@ -234,9 +235,10 @@ export const SignUp: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label>Password</label>
+                  <label>Password:</label>
                   <input
                     type="password"
+                    placeholder="create a password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full p-2 border rounded mb-4 text-dark-gray"
@@ -244,9 +246,10 @@ export const SignUp: React.FC = () => {
                   />
                 </div>
                 <div className="mb-5">
-                  <label>Confirm Password</label>
+                  <label>Confirm Password:</label>
                   <input
                     type="password"
+                    placeholder="confirm your password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     className="w-full p-2 border rounded text-dark-gray"
@@ -258,12 +261,12 @@ export const SignUp: React.FC = () => {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between mt-14 font-bona">
+          <div className="flex justify-between mt-14 font-playfair">
             {currentStep > 1 && (
               <button
                 type="button"
                 onClick={prevStep}
-                className="bg-sky text-dark-gray font-bold py-2 px-4 rounded hover:bg-white"
+                className="bg-blue text-dark-gray font-poppins py-2 px-4 rounded transition duration-300 hover:bg-white"
               >
                 Back
               </button>
@@ -272,7 +275,7 @@ export const SignUp: React.FC = () => {
               <button
                 type="button"
                 onClick={nextStep}
-                className="bg-sky text-dark-gray font-bold py-2 px-4 rounded hover:bg-white"
+                className="bg-sky text-dark-gray font-poppins py-2 px-4 rounded transition duration-300 hover:bg-white"
               >
                 Next
               </button>
@@ -280,14 +283,14 @@ export const SignUp: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setConfirming(true)}
-                className="bg-white text-dark-gray font-bold py-2 px-4 rounded hover:bg-sky"
+                className="bg-white text-dark-gray font-poppins py-2 px-4 rounded hover:bg-sky"
               >
                 Sign Up
               </button>
             )}
           </div>
           {confirming && (
-            <div className="absolute w-full h-full top-0 left-0 z-50 bg-gray flex flex-col items-center justify-center px-2 slideUp">
+            <div className="font-poppins absolute w-full h-full top-0 left-0 z-50 bg-gray flex flex-col items-center justify-center px-2 slideUp">
               <div>
                 {error ? (
                   <p className="text-white text-md bg-dark-gray p-2 mb-4">
@@ -327,14 +330,14 @@ export const SignUp: React.FC = () => {
                       setConfirming(false);
                       setError("");
                     }}
-                    className="py-2 px-4 bg-red text-white"
+                    className="py-2 px-4 bg-red text-white rounded"
                   >
                     Go Back
                   </button>
                 ) : (
                   <button
                     onClick={() => setConfirming(false)}
-                    className="bg-red py-2 px-4 text-white font-bold shadow-md"
+                    className="bg-red hover:bg-dark-red transition duration-300 py-2 px-4 text-white font-poppins shadow-md rounded"
                   >
                     {" "}
                     NO
@@ -342,7 +345,7 @@ export const SignUp: React.FC = () => {
                 )}
                 <button
                   type="submit"
-                  className="bg-white text-dark-gray font-bold px-4 py-1 shadow-md hover:bg-sky"
+                  className="bg-sky hover:bg-white transition duration-300 text-dark-gray font-poppins rounded px-4 py-1 shadow-md "
                 >
                   YES, SIGN UP
                 </button>

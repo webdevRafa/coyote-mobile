@@ -10,7 +10,7 @@ export default {
       'shade-gray': '#1c1d21',
       'dark-gray': '#19191d',
       'white': '#ffffff',
-      'off-white': '#f8f8f8',
+      'off-white': '#E0E0E0',
       'red': '#71001a',
       'dark-red': '#910707',
       'blue': '#054e71',
@@ -23,6 +23,8 @@ export default {
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'], // Variable font with all weights
         bona: ['BonaNovaSC', 'serif'], // Bona Nova SC for a serif style
+        poppins: ['Poppins', 'sans-serif'],
+        playfair: ['Playfair', 'serif'],
       },
     },
   },

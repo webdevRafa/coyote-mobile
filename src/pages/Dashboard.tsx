@@ -309,7 +309,7 @@ export const Dashboard: React.FC = () => {
         {/*  TOGGLE BETWEEN APPOINTMENTS AND AVAILABILITY */}
         <div className="w-full text-white py-2  max-w-[300px] mx-auto flex items-center justify-center text-center gap-3 mb-20">
           <button
-            className={`py-2 px-4 font-bona rounded-md ${
+            className={`py-2 px-4 font-poppins rounded-md ${
               manager === "appointments" ? "bg-sky" : "bg-gray"
             }`}
             onClick={() => setManager("appointments")}
@@ -317,7 +317,7 @@ export const Dashboard: React.FC = () => {
             Appointments
           </button>
           <button
-            className={`py-2 px-4 font-bona rounded-md ${
+            className={`py-2 px-4 font-poppins rounded-md ${
               manager === "availability" ? "bg-sky" : "bg-gray"
             }`}
             onClick={() => setManager("availability")}
@@ -330,7 +330,7 @@ export const Dashboard: React.FC = () => {
           <>
             {/* MANAGE APPOINTMENTS */}
             <div>
-              <h1 className="text-white text-center mb-5 text-2xl font-roboto">
+              <h1 className="text-white text-center mb-5 text-2xl font-poppins">
                 MANAGE APPOINTMENTS
               </h1>
               {/* Toggle Buttons */}

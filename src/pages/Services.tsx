@@ -10,7 +10,7 @@ const services = [
       "To restore joint mobility, relieve pain, and improve functionality",
     content: (
       <>
-        <ul className="font-bona p-5 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
+        <ul className="font-poppins p-5 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
           <li className="border-b-2 border-b-shade">Back pain</li>
           <li className="border-b-2 border-b-shade">Neck pain or stiffness</li>
           <li className="border-b-2 border-b-shade">
@@ -32,7 +32,7 @@ const services = [
       "To relax tight muscles, reduce scar tissue, and improve blood flow.",
     content: (
       <>
-        <ul className="font-bona p-5 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
+        <ul className="font-poppins p-5 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
           <li className="border-b-2 border-b-shade">
             Muscle tension or spasms
           </li>
@@ -56,7 +56,7 @@ const services = [
       "To strengthen weak muscles, improve posture, and prevent injuries.",
     content: (
       <>
-        <ul className="font-bona p-5 text-dark-gray bg-gradient-to-b from-white to-off-white max-w-[400px] mx-auto text-left">
+        <ul className="font-poppins p-5 text-dark-gray bg-gradient-to-b from-white to-off-white max-w-[400px] mx-auto text-left">
           <li className="border-b-2 border-b-shade">
             Muscle imbalances or poor posture
           </li>
@@ -96,10 +96,12 @@ export const Services: React.FC = () => {
         {/* Current Service Display */}
         <div className="bg-gradient-to-t from-gray to-dark-gray py-2 md:py-14 px-10 shadow-md w-full max-w-2xl text-center">
           <div className="slideRight">
-            <h1 className="text-lg mb-2 md:mb-5 font-bona font-bold text-sky">
+            <h1 className="text-2xl mb-2 font-playfair font-bold text-sky">
               {currentService.name}
             </h1>
-            <p className="font-BONA text-md mb-2">{currentService.purpose}</p>
+            <p className="font-poppins text-sm mb-2">
+              {currentService.purpose}
+            </p>
             <p className="mb-2 mt-10 font-roboto text-sm text-left">
               Recommended for:{" "}
             </p>
