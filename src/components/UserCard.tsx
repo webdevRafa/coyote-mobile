@@ -64,7 +64,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
   };
 
   return (
-    <div className="relative z-40 mt-10 rounded flex gap-2 justify-between max-w-[1200px] mx-auto items-start uppercase font-poppins bg-dark-gray">
+    <div className="relative z-40 mt-10 rounded flex gap-2 justify-between max-w-[1200px] mx-auto items-start font-poppins bg-dark-gray">
       <div className="shadow-md relative fadeIn">
         <div className="p-5">
           <h2 className="text-2xl text-white pb-1 bg-dark-gray mt-1 mb-3 rounded-t-lg text-left font-poppins">
@@ -78,15 +78,15 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
             {userData?.firstName || "First Name"}&nbsp;
             {userData?.lastName || "Last Name"}
           </p>
-          <p className="text-white  pb-1 text-sm">
+          <p className="text-off-white  pb-1 text-sm">
             <span className="text-sky">Number:</span>{" "}
             {formatPhoneNumberWithHyphens(userData?.phoneNumber) || "N/A"}
           </p>
-          <p className="text-white  pb-1 text-sm">
+          <p className="text-off-white  pb-1 text-sm">
             <span className="text-sky">Email:</span>{" "}
             {userData?.email || user?.email}
           </p>
-          <p className="text-white pb-1 text-sm mb-4">
+          <p className="text-off-white pb-1 text-sm mb-4">
             <span className="text-sky">Address:</span>{" "}
             {userData?.address?.street || "Street not available"},{" "}
             {userData?.address?.city || "City not available"},&nbsp;
@@ -95,7 +95,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
         </div>
         <button
           onClick={() => setUpdating(true)}
-          className="font-poppins bg-gradient-to-t from-dark-gray to-gray shadow-md text-white px-2 py-1 border-r-2 border-r-gray"
+          className="font-poppins bg-gradient-to-t from-dark-gray to-gray shadow-md text-off-white px-2 py-1 border-r-2 border-r-gray"
         >
           update info
         </button>
@@ -199,7 +199,7 @@ export const UserCard: React.FC<UserCardProps> = ({ user, userData }) => {
       <div>
         <button
           onClick={handleLogout}
-          className=" p-2 bg-white text-dark-gray font-bold  font-poppins"
+          className=" p-2 bg-off-white text-dark-gray font-bold  font-poppins"
         >
           Log out
         </button>

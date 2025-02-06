@@ -186,7 +186,7 @@ export const ScheduleAppointment: React.FC = () => {
           {availableDates
             .filter((dateObj) =>
               Object.values(dateObj.slots).includes("available")
-            ) // 🚀 Strictly Filter Only Dates That Exist
+            ) // Strictly Filter Only Dates That Exist
             .map((dateObj) => (
               <option key={dateObj.date} value={dateObj.date}>
                 {formatDate(dateObj.date)}

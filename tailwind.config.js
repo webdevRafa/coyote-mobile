@@ -17,7 +17,8 @@ export default {
       'dark-blue': '#127ea8',
       'green': '#05715e',
       'sky': '#097bd5',
-      'shade': '#f6f6f6'
+      'shade': '#f6f6f6',
+      'soft-blue': '#d6eaf3',
     },
     extend: {
       fontFamily: {

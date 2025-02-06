@@ -60,7 +60,7 @@ export const SignIn: React.FC = () => {
       <div className="w-full text-dark-gray slideRight">
         {hasAccount ? (
           <div className="py-6 px-5 md:px-20 w-full">
-            <h2 className="text-2xl md:text-3xl font-poppins mb-5 text-white">
+            <h2 className="text-2xl md:text-3xl font-poppins mb-5 text-soft-blue">
               SIGN IN
             </h2>
             {error && <p className="text-red text-sm mb-4">{error}</p>}
@@ -80,7 +80,7 @@ export const SignIn: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full  p-2 border border-gray rounded font-poppins"
+                  className="bg-soft-blue w-full  p-2 border border-gray rounded font-poppins"
                   required
                 />
               </div>
@@ -99,7 +99,7 @@ export const SignIn: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your Password"
-                  className="w-full p-2 border border-gray rounded font-poppins"
+                  className="bg-soft-blue w-full p-2 border border-gray rounded font-poppins"
                   required
                 />
               </div>

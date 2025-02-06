@@ -11,7 +11,7 @@ export const Navbar: React.FC = () => {
         <nav className="flex justify-between items-center p-4 bg-gray-800 text-white">
           <div className="text-2xl font-bold  flex items-center">
             <img className="h-[40px]" src={logo} alt="" />
-            <h2 className="hidden md:block ml-3 text-sm font-playfair">
+            <h2 className="hidden md:block ml-3 text-md font-playfair text-soft-blue">
               Coyote Mobile Chiropractic
             </h2>
           </div>

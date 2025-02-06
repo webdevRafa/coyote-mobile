@@ -16,17 +16,20 @@ export const About: React.FC = () => {
           <div className="w-full flex items-center justify-center mt-5 md:mt-0">
             <div>
               <div className="bg-gray shadow-md p-5">
-                <h1 className="font-playfair text-left text-white text-md md:text-xl mb-1">
+                <h1 className="font-playfair text-left text-soft-blue text-md md:text-2xl mb-1">
                   At Coyote Mobile Chiropractic, we understand how hectic life
                   can be.
                 </h1>
 
                 <p className="font-poppins text-sm text-off-white">
                   That's why we bring high-quality chiropractic care{" "}
-                  <span className="text-sky">directly to your doorstep</span> .
+                  <span className="text-soft-blue font-bold">
+                    directly to your doorstep
+                  </span>{" "}
+                  .
                 </p>
 
-                <p className="bg-dark-gray text-off-white mt-5 py-5 px-2 text-md font-playfair text-center ">
+                <p className="bg-dark-gray text-soft-blue mt-5 py-5 px-2 text-md font-poppins text-center ">
                   Dr. Moises Hernandez, D.C., is committed to helping you feel
                   your best without the hassle of traveling to a clinic.
                 </p>
@@ -37,7 +40,7 @@ export const About: React.FC = () => {
 
         <div className="mx-auto w-[90%] max-w-[1200px] px-3 z-40 relative">
           <div>
-            <h2 className="text-xl text-sky text-center font-playfair w-full">
+            <h2 className="text-xl text-soft-blue text-center font-playfair w-full">
               With a focus on personalized care, Dr. Hernandez uses his
               expertise to provide effective adjustments and muscle therapy
               tailored to your unique needs.
@@ -48,13 +51,12 @@ export const About: React.FC = () => {
               you regain control of your health and feel at ease.
             </p>
           </div>
-          <p className="text-dark-gray bg-off-white text-xl rounded-lg md:text-3xl mt-5 max-w-[800px] mx-auto p-5">
+          <p className="text-dark-gray font-poppins bg-soft-blue rounded-lg md:text-3xl mt-5 max-w-[800px] mx-auto p-5 translate-y-[50%] mb-20">
             <strong>Ready to take the first step toward better health?</strong>{" "}
             Create an account today to schedule a free consultation or request a
             personalized visit with Dr. Hernandez.
           </p>
         </div>
-        <div className=" translate-y-[-90px] z-0 relative h-[20px] bg-gradient-to-b from-gray to-sky"></div>
       </div>
     </>
   );

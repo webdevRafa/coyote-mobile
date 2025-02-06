@@ -96,10 +96,10 @@ export const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-center px-1 w-full mx-auto text-white slideRight max-w-[600px]">
+    <div className="relative flex items-center justify-center px-1  w-full mx-auto text-white slideRight max-w-[600px]">
       {!hasAccount ? (
         <div className="py-6 w-full">
-          <div className="py-6 md:px-20 w-full">
+          <div className="py-6 w-full">
             {error ? (
               <p className="text-red text-xl mb-4">{error}</p>
             ) : success ? (
@@ -110,10 +110,10 @@ export const SignUp: React.FC = () => {
             {/* Step 1 */}
             {currentStep === 1 && (
               <>
-                <h1 className="text-2xl text-center mb-2 font-poppins">
+                <h1 className="text-2xl text-soft-blue text-center mb-2 font-poppins">
                   GET STARTED
                 </h1>
-                <p className="mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm font-poppins text-center border-b-gray border-b-2 pb-2">
+                <p className="mb-5 bg-blue p-2 shadow-md text-dark-gray text-sm font-poppins text-center border-b-gray border-b-2 pb-2">
                   create an account to take your next step into better health
                 </p>
 
@@ -124,7 +124,7 @@ export const SignUp: React.FC = () => {
                       type="text"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
-                      className="w-full p-2 border rounded mb-4 text-dark-gray"
+                      className="bg-soft-blue w-full p-2 border rounded mb-4 text-dark-gray"
                       required
                     />
                   </div>
@@ -134,7 +134,7 @@ export const SignUp: React.FC = () => {
                       type="text"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
-                      className="w-full p-2 border rounded mb-4 text-dark-gray"
+                      className="bg-soft-blue w-full p-2 border rounded mb-4 text-dark-gray"
                       required
                     />
                   </div>
@@ -145,7 +145,7 @@ export const SignUp: React.FC = () => {
                     type="text"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="w-full p-2 border rounded mb-4 text-dark-gray"
+                    className="bg-soft-blue w-full p-2 border rounded mb-4 text-dark-gray"
                   />
                 </div>
                 <div className="font-poppins">
@@ -154,7 +154,7 @@ export const SignUp: React.FC = () => {
                     type="date"
                     value={dateOfBirth}
                     onChange={(e) => setDateOfBirth(e.target.value)}
-                    className="w-full p-2 border rounded mb-4 text-dark-gray"
+                    className="bg-soft-blue w-full p-2 border rounded mb-4 text-dark-gray"
                   />
                 </div>
               </>
@@ -164,8 +164,10 @@ export const SignUp: React.FC = () => {
             {currentStep === 2 && (
               <>
                 <div className="slideRight font-poppins">
-                  <h1 className="text-2xl text-center mb-2">ADDRESS</h1>
-                  <p className="font-poppins mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm text-center border-b-gray border-b-2 pb-2">
+                  <h1 className="text-2xl text-center mb-2 text-soft-blue">
+                    ADDRESS
+                  </h1>
+                  <p className="font-poppins mb-5 bg-blue p-2 shadow-md text-dark-gray text-sm text-center border-b-gray border-b-2 pb-2">
                     this is required for home visits
                   </p>
 
@@ -175,7 +177,7 @@ export const SignUp: React.FC = () => {
                       type="text"
                       value={street}
                       onChange={(e) => setStreet(e.target.value)}
-                      className="w-full p-2 border rounded mb-4 text-dark-gray"
+                      className="bg-soft-blue w-full p-2 border rounded mb-4 text-dark-gray"
                     />
                   </div>
                   <div>
@@ -184,7 +186,7 @@ export const SignUp: React.FC = () => {
                       type="text"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
-                      className="w-full p-2 border rounded mb-4 text-dark-gray"
+                      className="bg-soft-blue w-full p-2 border rounded mb-4 text-dark-gray"
                     />
                   </div>
 
@@ -194,7 +196,7 @@ export const SignUp: React.FC = () => {
                       type="text"
                       value={zipCode}
                       onChange={(e) => setZipCode(e.target.value)}
-                      className="w-full p-2 border rounded mb-4 text-dark-gray"
+                      className="bg-soft-blue w-full p-2 border rounded mb-4 text-dark-gray"
                     />
                   </div>
                 </div>
@@ -204,8 +206,10 @@ export const SignUp: React.FC = () => {
             {currentStep === 3 && (
               <>
                 <div className="slideRight font-poppins">
-                  <h1 className="text-2xl text-center mb-2">ADDITIONAL INFO</h1>
-                  <p className="font-poppins mb-5 bg-sky py-2 shadow-md text-dark-gray text-sm text-center border-b-gray border-b-2 pb-2">
+                  <h1 className="text-2xl text-center mb-2 text-soft-blue">
+                    ADDITIONAL INFO
+                  </h1>
+                  <p className="font-poppins mb-5 bg-blue p-2 shadow-md text-dark-gray text-sm text-center border-b-gray border-b-2 pb-2">
                     please add anything you would like to share
                   </p>
 
@@ -214,7 +218,7 @@ export const SignUp: React.FC = () => {
                       required
                       value={additionalInfo}
                       onChange={(e) => setAdditionalInfo(e.target.value)}
-                      className="w-full p-2 border rounded mb-4 text-dark-gray mt-4"
+                      className="bg-soft-blue w-full p-2 border rounded mb-4 text-dark-gray mt-4"
                     />
                   </div>
                 </div>
@@ -224,7 +228,7 @@ export const SignUp: React.FC = () => {
             {currentStep === 4 && (
               <>
                 <div className="slideRight font-poppins">
-                  <h1 className="text-2xl text-center mb-2 border-b-2 border-b-gray">
+                  <h1 className="text-2xl text-soft-blue text-center mb-2 border-b-2 border-b-gray">
                     CREATE YOUR LOGIN
                   </h1>
 
@@ -235,7 +239,7 @@ export const SignUp: React.FC = () => {
                       placeholder="enter your email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full p-2 border rounded mb-4 text-dark-gray"
+                      className="bg-soft-blue w-full p-2 border rounded mb-4 text-dark-gray"
                       required
                     />
                   </div>
@@ -246,7 +250,7 @@ export const SignUp: React.FC = () => {
                       placeholder="create a password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full p-2 border rounded mb-4 text-dark-gray"
+                      className="bg-soft-blue w-full p-2 border rounded mb-4 text-dark-gray"
                       required
                     />
                   </div>
@@ -257,7 +261,7 @@ export const SignUp: React.FC = () => {
                       placeholder="confirm your password"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className="w-full p-2 border rounded text-dark-gray"
+                      className="bg-soft-blue w-full p-2 border rounded text-dark-gray"
                       required
                     />
                   </div>

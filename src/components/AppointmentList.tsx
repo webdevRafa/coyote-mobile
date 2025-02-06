@@ -60,12 +60,14 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
     <>
       <div className="relative flex flex-col max-w-[1200px]  mx-auto my-20">
         <div className="py-4 px-6  bg-gradient-to-b from-gray shadow-md to-dark-gray">
-          <h2 className="text-2xl my-4 text-white">Your Appointments</h2>
-          <ul>
+          <h2 className="text-2xl my-4 text-white font-poppins">
+            Your Appointments
+          </h2>
+          <ul className="text-dark-gray font-poppins">
             {appointments.map((appointment) => (
               <li
                 key={appointment.id}
-                className="py-8 px-4 mb-5 max-w-[600px] border-8 border-dark-gray bg-off-white hover:bg-white shadow-md hover:shadow-md animation transition ease-in-out duration-75 group"
+                className="py-8 px-4 mb-5 max-w-[600px]  rounded-lg bg-soft-blue hover:bg-white shadow-md hover:shadow-md animation transition ease-in-out duration-300 group"
               >
                 <p className="mb-2">
                   <strong>Reason for Visit: </strong>
@@ -88,7 +90,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
                 </p>
                 <button
                   onClick={() => handleManage(appointment)}
-                  className="font-mono bg-blue p-1 px-4 rounded-sm text-white "
+                  className="font-poppins bg-dark-gray rounded-md p-1 px-4 text-white "
                 >
                   Manage
                 </button>
@@ -111,7 +113,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
                 <button
                   onClick={handleCancelAppointment}
                   disabled={loading}
-                  className={`bg-red rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-mono ${
+                  className={`bg-red rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-poppins ${
                     loading ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                 >
@@ -119,7 +121,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
                 </button>
                 <button
                   onClick={() => setManaging(false)}
-                  className="bg-green rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-mono"
+                  className="bg-green rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-poppins"
                 >
                   Reschedule
                 </button>

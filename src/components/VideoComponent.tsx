@@ -47,7 +47,7 @@ const VideoComponent: React.FC = () => {
   }, [videoURL]); // Runs once video URL is set
 
   return (
-    <div className="flex justify-center h-[400px] md:h-[500px] shadow-xl">
+    <div className="flex justify-center h-[400px] mx-auto md:h-[500px]">
       {videoURL ? (
         <video ref={videoRef} controls width="600" muted>
           <source src={videoURL} type="video/mp4" />

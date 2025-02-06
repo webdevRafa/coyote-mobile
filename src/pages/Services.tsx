@@ -10,16 +10,18 @@ const services = [
       "To restore joint mobility, relieve pain, and improve functionality",
     content: (
       <>
-        <ul className="font-poppins p-5 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
-          <li className="border-b-2 border-b-shade">Back pain</li>
-          <li className="border-b-2 border-b-shade">Neck pain or stiffness</li>
-          <li className="border-b-2 border-b-shade">
+        <ul className="font-poppins p-5 text-dark-gray bg-gradient-to-b from-white to-off-white max-w-[400px] mx-auto text-left">
+          <li className="border-b-2 border-b-soft-blue">Back pain</li>
+          <li className="border-b-2 border-b-soft-blue">
+            Neck pain or stiffness
+          </li>
+          <li className="border-b-2 border-b-soft-blue">
             Joint restrictions or misalignments
           </li>
-          <li className="border-b-2 border-b-shade">
+          <li className="border-b-2 border-b-soft-blue">
             Chronic headaches or migraines
           </li>
-          <li className="border-b-2 border-b-shade">
+          <li className="border-b-2 border-b-soft-blue">
             Sciatica or radiating pain in the legs
           </li>
         </ul>
@@ -33,17 +35,17 @@ const services = [
     content: (
       <>
         <ul className="font-poppins p-5 text-dark-gray bg-white max-w-[400px] mx-auto text-left">
-          <li className="border-b-2 border-b-shade">
+          <li className="border-b-2 border-b-soft-blue">
             Muscle tension or spasms
           </li>
-          <li className="border-b-2 border-b-shade">
+          <li className="border-b-2 border-b-soft-blue">
             Sports injuries or repetitive strain injuries
           </li>
-          <li className="border-b-2 border-b-shade">Postural imbalances</li>
-          <li className="border-b-2 border-b-shade">
+          <li className="border-b-2 border-b-soft-blue">Postural imbalances</li>
+          <li className="border-b-2 border-b-soft-blue">
             Soft tissue damage from trauma
           </li>
-          <li className="border-b-2 border-b-shade">
+          <li className="border-b-2 border-b-soft-blue">
             Trigger points causing pain in specific areas
           </li>
         </ul>
@@ -57,16 +59,16 @@ const services = [
     content: (
       <>
         <ul className="font-poppins p-5 text-dark-gray bg-gradient-to-b from-white to-off-white max-w-[400px] mx-auto text-left">
-          <li className="border-b-2 border-b-shade">
+          <li className="border-b-2 border-b-soft-blue">
             Muscle imbalances or poor posture
           </li>
-          <li className="border-b-2 border-b-shade">
+          <li className="border-b-2 border-b-soft-blue">
             Rehabilitation after an injury
           </li>
-          <li className="border-b-2 border-b-shade">
+          <li className="border-b-2 border-b-soft-blue">
             Chronic conditions requiring muscle strengthening
           </li>
-          <li className="border-b-2 border-b-shade">
+          <li className="border-b-2 border-b-soft-blue">
             Limited range of motion in joints
           </li>
         </ul>
@@ -96,13 +98,13 @@ export const Services: React.FC = () => {
         {/* Current Service Display */}
         <div className="bg-gradient-to-t from-gray to-dark-gray py-2 md:py-14 px-10 shadow-md w-full max-w-2xl text-center">
           <div className="slideRight">
-            <h1 className="text-2xl mb-2 font-playfair font-bold text-sky">
+            <h1 className="text-2xl mb-2 font-poppins font-bold text-soft-blue">
               {currentService.name}
             </h1>
             <p className="font-poppins text-sm mb-2">
               {currentService.purpose}
             </p>
-            <p className="mb-2 mt-10 font-roboto text-sm text-left">
+            <p className="mb-2 mt-10 font-poppins text-sm text-left">
               Recommended for:{" "}
             </p>
             {currentService.content}
