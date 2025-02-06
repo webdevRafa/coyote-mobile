@@ -289,15 +289,14 @@ export const Dashboard: React.FC = () => {
     );
   if (!user) {
     return (
-      <div className="w-full mt-[100px]  text-gray font-mono text-center py-20 pt-5 pl-1">
-        <img src={logo} className="mb-20 w-[100px] mx-auto" alt="" />
+      <div className="w-full mt-[100px] text-gray font-mono text-center py-[60px] md:py-[180px] pl-1">
         <div className="flex items-center justify-center h-full">
-          <div>
-            <p className="text-sky shadow-md p-2">
-              Please login to access the dashboard.
-            </p>
-            <p>{error}</p>
-            <SignIn />
+          <div className="flex flex-col items-center gap-20 md:flex-row">
+            <img src={logo} className="mb-5 size-52 mx-auto" alt="" />
+            <div className="w-full">
+              <p>{error}</p>
+              <SignIn />
+            </div>
           </div>
         </div>
       </div>

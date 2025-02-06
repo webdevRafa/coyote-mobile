@@ -173,6 +173,7 @@ export const ScheduleAppointment: React.FC = () => {
 
       {/* Dropdown for Available Dates */}
       <div className="mb-4">
+        <h3 className="text-sky font-poppins">CHECK AVAILABILITY</h3>
         <h3 className="font-semibold mb-2 text-white">Select a Date:</h3>
         <select
           className="border p-2 rounded w-full"
