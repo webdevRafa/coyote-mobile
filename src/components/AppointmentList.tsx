@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ScheduleAppointment } from "./ScheduleAppointment";
 import { Appointment, formatDateTime } from "../utilities/types";
 import { cancelAppointment } from "../services/cancelAppointment";
+import { MdClose } from "react-icons/md";
 
 interface AppointmentListProps {
   appointments: Appointment[];
@@ -59,7 +60,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
   return (
     <>
       <div className="relative flex flex-col max-w-[1200px]  mx-auto my-20">
-        <div className="py-4 px-6  bg-gradient-to-b from-gray shadow-md to-dark-gray">
+        <div className="py-4 px-6  bg-gradient-to-b from-gray shadow-md to-dark-gray relative">
           <h2 className="text-2xl my-4 text-white font-poppins">
             Your Appointments
           </h2>
@@ -71,7 +72,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
               >
                 <p className="mb-2">
                   <strong>Reason for Visit: </strong>
-                  <span className=" px-2 py-1 shadow-md">
+                  <span className=" px-2 py-1">
                     {appointment.reasonForVisit}
                   </span>
                 </p>
@@ -97,38 +98,45 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
               </li>
             ))}
           </ul>
-        </div>
-        {managing && selectedAppointment && (
-          <div className="z-40 w-full h-full absolute top-0 left-0 bg-off-white flex items-center justify-center">
-            <div>
-              <h1 className=" text-gray mb-2">
-                <strong>Reason for Visit: </strong>{" "}
-                {selectedAppointment.reasonForVisit}
-              </h1>
-              <h2 className="mb-2">
-                <strong>Date: </strong>{" "}
-                {formatDateTime(selectedAppointment.date)}
-              </h2>
-              <div className="flex gap-3 justify-between">
-                <button
-                  onClick={handleCancelAppointment}
-                  disabled={loading}
-                  className={`bg-red rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-poppins ${
-                    loading ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
-                >
-                  {loading ? "Cancelling..." : "Cancel Appointment"}
-                </button>
-                <button
+          {managing && selectedAppointment && (
+            <div className="z-40 w-full h-full absolute top-0 left-0 bg-dark-gray flex items-center justify-center slideRight font-poppins">
+              <div className="absolute top-1 right-1">
+                <MdClose
                   onClick={() => setManaging(false)}
-                  className="bg-green rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-poppins"
-                >
-                  Reschedule
-                </button>
+                  className="size-8 text-soft-blue hover:text-white cursor-pointer"
+                />
+              </div>
+              <div>
+                <h1 className=" text-white mb-2">
+                  <strong>Reason for Visit: </strong>{" "}
+                  {selectedAppointment.reasonForVisit}
+                </h1>
+                <h2 className="mb-2 text-soft-blue">
+                  <strong>Date: </strong>{" "}
+                  {formatDateTime(selectedAppointment.date)}
+                </h2>
+                <div className="flex gap-3 justify-between">
+                  <button
+                    onClick={handleCancelAppointment}
+                    disabled={loading}
+                    className={`bg-red rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-poppins ${
+                      loading ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
+                  >
+                    {loading ? "Cancelling..." : "Cancel Appointment"}
+                  </button>
+                  <button
+                    onClick={() => setManaging(false)}
+                    className="bg-green rounded-sm shadow-md text-white py-1 px-2 mt-5 mx-auto block font-poppins"
+                  >
+                    Reschedule
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+
         <div className="px-4 my-5  w-full">
           <ScheduleAppointment />
         </div>

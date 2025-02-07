@@ -15,6 +15,7 @@ export const Navbar: React.FC = () => {
               Coyote Mobile Chiropractic
             </h2>
           </div>
+
           <div className="flex gap-4">
             <NavLink
               to="/"

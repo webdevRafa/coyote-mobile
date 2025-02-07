@@ -10,8 +10,9 @@ export const Home: React.FC = () => {
     <>
       <div className="relative">
         <HeroSection />
+
         <About />
-        <div className="md:px-10 pb-20 mt-10  relative z-40 pt-14">
+        <div className="md:px-10 pb-20 relative z-40">
           <div className="max-w-[1200px] shadow-md rounded-md bg-dark-gray p-20 flex flex-col items-center md:flex-row mx-auto gap-2 relative">
             <VideoComponent />
             <SignUp />

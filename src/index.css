@@ -75,6 +75,28 @@ li {
   animation: slideUp 500ms forwards ease-in-out;
   transform: translateY(-200%);
 }
+.mobilemenuopen {
+  animation: mobileOpen 500ms ease-in-out forwards;
+}
+.mobilemenuclose {
+  animation: mobileClose 500ms ease-in-out forwards;
+}
+@keyframes mobileOpen {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes mobileClose {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%)
+  }
+}
 @keyframes slideUp {
   0% {
     transform: translateY(200%);

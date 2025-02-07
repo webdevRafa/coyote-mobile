@@ -16,7 +16,7 @@ export const About: React.FC = () => {
           <div className="w-full flex items-center justify-center mt-5 md:mt-0">
             <div>
               <div className="bg-gray shadow-md p-5">
-                <h1 className="font-playfair text-left text-soft-blue text-md md:text-2xl mb-1">
+                <h1 className="font-poppins text-left text-soft-blue text-md md:text-xl mb-2">
                   At Coyote Mobile Chiropractic, we understand how hectic life
                   can be.
                 </h1>
@@ -38,23 +38,37 @@ export const About: React.FC = () => {
           </div>
         </div>
 
-        <div className="mx-auto w-[90%] max-w-[1200px] px-3 z-40 relative">
+        <div className="mx-auto w-[90%] max-w-[1300px] px-3 z-40 relative">
           <div>
-            <h2 className="text-xl text-soft-blue text-center font-playfair w-full">
+            <h2 className="text-xl text-white text-center font-poppins">
               With a focus on personalized care, Dr. Hernandez uses his
               expertise to provide effective adjustments and muscle therapy
               tailored to your unique needs.
             </h2>
-            <p className="text-off-white font-poppins text-center text-sm mt-5 max-w-[600px] mx-auto border-b-gray border-b-2 pb-3 mb-10 ">
+            <p className="text-soft-blue font-poppins text-center text-sm mt-5 max-w-[600px] mx-auto border-b-gray border-b-2 pb-3 mb-10 ">
               Whether you're dealing with pain, stiffness, or just looking to
               improve your overall mobility, our services are designed to help
               you regain control of your health and feel at ease.
             </p>
           </div>
-          <p className="text-dark-gray font-poppins bg-soft-blue rounded-lg md:text-3xl mt-5 max-w-[800px] mx-auto p-5 translate-y-[50%] mb-20">
-            <strong>Ready to take the first step toward better health?</strong>{" "}
-            Create an account today to schedule a free consultation or request a
-            personalized visit with Dr. Hernandez.
+          <div>
+            <h2 className="text-white text-center text-xl font-poppins">
+              Coyote Mobile Chiropractic is currently available{" "}
+              <span className="text-sky">only in Texas</span>
+              &nbsp;in the following cities:
+            </h2>
+            <ul className="text-soft-blue mt-10 mx-auto block max-w-[300px] text-center">
+              <li>Brownsville</li>
+              <li>San Benito</li>
+              <li>Harlingen</li>
+              <li>Los Fresnos</li>
+              <li>Los Fresnos</li>
+              <li>Port Isabel</li>
+            </ul>
+          </div>
+          <p className="text-dark-gray font-poppins bg-soft-blue rounded-lg md:text-2xl max-w-[800px] mx-auto p-5 translate-y-[50%] mb-[100px]">
+            <strong>Getting started is easy.</strong> Create an account to get a
+            free consultation.
           </p>
         </div>
       </div>
