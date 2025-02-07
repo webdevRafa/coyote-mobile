@@ -62,8 +62,8 @@ export const About: React.FC = () => {
               <li>San Benito</li>
               <li>Harlingen</li>
               <li>Los Fresnos</li>
-              <li>Los Fresnos</li>
               <li>Port Isabel</li>
+              <li>South Padre Island</li>
             </ul>
           </div>
           <p className="text-dark-gray font-poppins bg-soft-blue rounded-lg md:text-2xl max-w-[800px] mx-auto p-5 translate-y-[50%] mb-[100px]">
