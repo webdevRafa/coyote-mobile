@@ -32,6 +32,30 @@ export const SignUp: React.FC = () => {
   const prevStep = () => setCurrentStep((prev) => prev - 1);
   const [hasAccount, setHasAccount] = useState<boolean>(false);
 
+  const getFriendlyErrorMessage = (errorCode: string): string => {
+    const errorMessages: Record<string, string> = {
+      "auth/email-already-in-use":
+        "This email is already registered. Try logging in instead.",
+      "auth/invalid-email":
+        "The email address you entered is invalid. Please check and try again.",
+      "auth/weak-password":
+        "Your password is too weak. Use at least 8 characters with a mix of letters, numbers, and symbols.",
+      "auth/missing-password": "Please enter a password.",
+      "auth/password-does-not-meet-requirements":
+        "Your password must be at least 8 characters long and include an uppercase letter, a number, and a special character.",
+      "auth/user-not-found":
+        "No account found with this email. Please sign up first.",
+      "auth/wrong-password": "Incorrect password. Please try again.",
+      "auth/network-request-failed":
+        "Network error. Please check your internet connection and try again.",
+      "auth/too-many-requests":
+        "Too many failed login attempts. Please wait a few minutes and try again.",
+    };
+
+    return (
+      errorMessages[errorCode] || "Something went wrong. Please try again."
+    );
+  };
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -91,7 +115,7 @@ export const SignUp: React.FC = () => {
       setConfirming(false); // Close confirmation modal
       navigate("/dashboard");
     } catch (error: any) {
-      setError(error.message || "Something went wrong");
+      setError(getFriendlyErrorMessage(error.code));
     }
   };
 
