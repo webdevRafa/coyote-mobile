@@ -3,7 +3,6 @@ import { ScheduleAppointment } from "./ScheduleAppointment";
 import { Appointment, formatDateTime } from "../utilities/types";
 import { cancelAppointment } from "../services/cancelAppointment";
 import { MdClose } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
 
 interface AppointmentListProps {
   appointments: Appointment[];
