@@ -291,9 +291,9 @@ export const Dashboard: React.FC = () => {
     return (
       <div className="w-full mt-[100px] text-gray font-mono text-center py-[60px] md:py-[180px] pl-1">
         <div className="flex items-center justify-center h-full">
-          <div className="flex flex-col items-center gap-20 md:flex-row">
+          <div className="flex flex-col items-center md:gap-20 md:flex-row">
             <img src={logo} className="mb-5 size-52 mx-auto" alt="" />
-            <div className="w-full">
+            <div className="w-[90%] md:w-full mx-auto">
               <p>{error}</p>
               <SignIn />
             </div>

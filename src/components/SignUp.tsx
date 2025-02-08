@@ -326,9 +326,11 @@ export const SignUp: React.FC = () => {
               <div className="font-poppins absolute w-full h-full top-0 left-0 z-50 bg-gray flex flex-col items-center justify-center px-2 slideUp">
                 <div>
                   {error ? (
-                    <p className="text-white text-md bg-dark-gray p-2 mb-4">
-                      {error}
-                    </p>
+                    <div>
+                      <p className="text-white text-md bg-dark-gray p-2 mb-4 border-red border-2">
+                        {error}
+                      </p>
+                    </div>
                   ) : success ? (
                     <p className="text-green text-xl mb-4">{success}</p>
                   ) : null}
