@@ -113,7 +113,7 @@ export const SignUp: React.FC = () => {
                 <h1 className="text-2xl text-soft-blue text-center mb-2 font-poppins">
                   GET STARTED
                 </h1>
-                <p className="mb-5 bg-blue p-2 shadow-md text-dark-gray text-sm font-poppins text-center border-b-gray border-b-2 pb-2">
+                <p className="mb-5 bg-blue p-2 shadow-md text-soft-blue text-sm font-poppins text-center border-b-gray border-b-2 pb-2">
                   create an account to take your next step into better health
                 </p>
 
@@ -167,7 +167,7 @@ export const SignUp: React.FC = () => {
                   <h1 className="text-2xl text-center mb-2 text-soft-blue">
                     ADDRESS
                   </h1>
-                  <p className="font-poppins mb-5 bg-blue p-2 shadow-md text-dark-gray text-sm text-center border-b-gray border-b-2 pb-2">
+                  <p className="font-poppins mb-5 bg-blue p-2 shadow-md text-soft-blue text-sm text-center border-b-gray border-b-2 pb-2">
                     this is required for home visits
                   </p>
 
@@ -209,7 +209,7 @@ export const SignUp: React.FC = () => {
                   <h1 className="text-2xl text-center mb-2 text-soft-blue">
                     ADDITIONAL INFO
                   </h1>
-                  <p className="font-poppins mb-5 bg-blue p-2 shadow-md text-dark-gray text-sm text-center border-b-gray border-b-2 pb-2">
+                  <p className="font-poppins mb-5 bg-blue p-2 shadow-md text-soft-blue text-sm text-center border-b-gray border-b-2 pb-2">
                     please add anything you would like to share
                   </p>
 

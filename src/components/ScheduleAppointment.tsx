@@ -43,6 +43,7 @@ export const ScheduleAppointment: React.FC = () => {
   const [reason, setReason] = useState<string>("");
   const [painLevel, setPainLevel] = useState<string>("0");
   const [screen, setScreen] = useState<boolean>(false);
+  const [booked, setBooked] = useState<boolean>(false);
 
   // Load available slots from Firestore
   useEffect(() => {
@@ -139,7 +140,7 @@ export const ScheduleAppointment: React.FC = () => {
         createdAt: Timestamp.now(),
       });
 
-      alert("Appointment successfully booked!");
+      setBooked(true);
       setTimeSlots(updatedSlots); // Update local state
       setSelectedSlot(null);
       setReason("");
@@ -151,6 +152,27 @@ export const ScheduleAppointment: React.FC = () => {
 
   return (
     <div className="p-6 bg-gray shadow-md rounded relative">
+      {booked && (
+        <div className="fixed left-0 top-0 w-full bg-gray flex items-center justify-center z-50 h-[100vh]">
+          <div className="fadeIn">
+            <h1 className="text-soft-blue text-2xl text-center">
+              THANK YOU FOR BOOKING
+            </h1>
+            <p className="text-soft-blue font-poppins text-center">
+              you will receive a confirmation email shortly
+            </p>
+            <button
+              onClick={() => {
+                setBooked(false);
+                window.location.reload();
+              }}
+              className="bg-blue py-1 px-3 mx-auto block mt-5 rounded-sm font-poppins text-white hover:bg-sky transition duration-300"
+            >
+              return
+            </button>
+          </div>
+        </div>
+      )}
       {screen && (
         <div className="absolute top-0 w-full h-full left-0 bg-dark-gray flex items-center justify-center">
           <div>

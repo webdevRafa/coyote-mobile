@@ -3,6 +3,7 @@ import { ScheduleAppointment } from "./ScheduleAppointment";
 import { Appointment, formatDateTime } from "../utilities/types";
 import { cancelAppointment } from "../services/cancelAppointment";
 import { MdClose } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 interface AppointmentListProps {
   appointments: Appointment[];
@@ -13,11 +14,10 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
   appointments,
   onRemoveAppointment,
 }) => {
-  const [managing, setManaging] = useState(false);
+  const [managing, setManaging] = useState<boolean>(false);
   const [selectedAppointment, setSelectedAppointment] =
     useState<Appointment | null>(null);
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState<boolean>(false);
   const handleManage = (appointment: Appointment) => {
     setManaging(true);
     setSelectedAppointment(appointment);
@@ -39,7 +39,11 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
       setLoading(true);
       await cancelAppointment(documentDate, timeSlot);
       onRemoveAppointment(selectedAppointment.id);
-      alert("Appointment successfully canceled!");
+
+      // trigger a re-fetch of appointments
+      setTimeout(() => {
+        window.location.reload(); // quick fix to force re-fetch
+      }, 500);
       setManaging(false);
     } catch (error) {
       console.error("Failed to cancel appointment:", error);
